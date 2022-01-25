@@ -3,21 +3,13 @@
     <title>FolkShare - etusivu</title>
     <script src="{{url_for('static', filename='abcjs-basic-min.js')}}"></script>
     <script type="text/javascript">
-        var abc = "T: Cooley's\n" +
-          "M: 4/4\n" +
-          "L: 1/8\n" +
-          "K: Emin\n" +
-          "|:D2|EB{c}BA B2 EB|~B2 AB dBAG|FDAD BDAD|FDAD dAFD|\n" +
-          "EBBA B2 EB|B2 AB defg|afe^c dBAF|DEFD E2:|\n" +
-          "|:gf|eB B2 efge|eB B2 gedB|A2 FA DAFA|A2 FA defg|\n" +
-          "eB B2 eBgB|eB B2 defg|afe^c dBAF|DEFD E2:|";
-
-        function loadSong() {
-          console.log(abc)
-          ABCJS.renderAbc("notation", abc);
-        }
+      function loadSong() {
+        console.log('{{ song[2] }}')
+        ABCJS.renderAbc("notation", '{{ song[2] }}');
+      }
     </script>
 </head>
+
   <body onload="loadSong()">
     <h1>Tämä on FolkShare!</h1>
     <p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla.</p>
