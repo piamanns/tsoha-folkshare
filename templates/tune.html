@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>FolkShare - {{ tune[1] }}</title>
+    <script src="{{url_for('static', filename='abcjs-basic-min.js')}}"></script>
+    <script type="text/javascript">
+      function loadTune() {
+        ABCJS.renderAbc("notation", '{{ tune[2] }}');
+      }
+    </script>
+</head>
+
+<body onload="loadTune()">
+  <div id="notation">
+    <p>Nuotin pitäisi näkyä tässä.</p>
+  </div>
+  <p><a href="/">Takaisin etusivulle</a></p>  
+</body>
