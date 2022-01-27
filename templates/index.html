@@ -1,17 +1,10 @@
-<html>
-  <head>
-    <title>FolkShare - etusivu</title>
-</head>
-
-  <body onload="loadSong()">
-    <h1>FolkShare</h1>
-    <p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla!</p>
-    <hr>
-    <h3>Palvelusta löytyvät nuotit:</h3>
-      <ul>
-        {% for tune in tunes %}
-        <li><a href="/tune/{{ tune.id }}">{{ tune[1]}}</a></li>
-        {% endfor %}
+{% extends "layout.html" %}
+{% block title %}etusivu{% endblock %}
+{% block content %}
+  <h3>Palvelusta löytyvät nuotit:</h3>
+    <ul>
+      {% for tune in tunes %}
+      <li><a href="/tune/{{ tune.id }}">{{ tune[1]}}</a></li>
+      {% endfor %}
     </ul>
-  </body>
-</html>
+{% endblock %}
