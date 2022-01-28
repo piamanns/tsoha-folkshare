@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Luo käyttäjätunnus palveluun</h2>
+
+<form action="/register" method="POST">
+  <p>Käyttäjätunnus: <br><input type="text" name="username" minlength="1" maxlength="20">
+  <p>Salasana: <br><input type="password" name="password1">
+  <p>Salasana uudelleen: <br><input type="password" name="password2">
+  <p>Käyttäjärooli:
+    <select name="role">
+      <option value=1> käyttäjä
+      <option value=2> ylläpitäjä
+    </select>
+  <p>
+  <input type="submit" value="Luo tunnus">
+</form>
+
+<p><a href="/">Takaisin etusivulle</a>
+
+{% endblock %}

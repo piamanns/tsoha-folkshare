@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}etusivu{% endblock %}
 {% block content %}
-  <h3>Palvelusta löytyvät nuotit:</h3>
-    <ul>
-      {% for tune in tunes %}
-      <li><a href="/tune/{{ tune.id }}">{{ tune[1]}}</a></li>
-      {% endfor %}
-    </ul>
+<h3>Palvelusta löytyvät nuotit:</h3>
+<ul>
+  {% for tune in tunes %}
+  <li><a href="/tune/{{ tune.id }}">{{ tune[1]}}</a></li>
+  {% endfor %}
+</ul>
 {% endblock %}
