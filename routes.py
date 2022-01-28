@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import redirect, render_template, request
 from app import app
 from db import db
 import users
@@ -21,6 +21,7 @@ def tune(id):
 def register():
     if request.method == "GET":
         return render_template("register.html")
+    
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
@@ -38,3 +39,22 @@ def register():
         if not users.register(username, password1, role):
             return "<p>Rekisteröinti epäonnistui</p>"
         return "<p>Rekisteröinti onnistui!</p>"
+
+@app.route("/login", methods = ["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        if not users.login(username, password):
+            return "<p>Kirjautuminen epäonnistui</p>"
+        return redirect("/")
+
+@app.route("/logout")
+def logout():
+    users.logout()
+    return redirect("/")
+    

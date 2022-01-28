@@ -2,7 +2,11 @@
 <title>FolkShare - {% block title %}{% endblock %}</title>
 <h1>FolkShare</h1>
 <p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla!
-<p><a href="/register">Rekisteröidy palveluun</a>
+{% if session.user_id %}
+<p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong> | <a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
+{% endif %}
 <hr>
 {% block content %}
 {% endblock %}
