@@ -1,10 +1,17 @@
 {% extends "layout.html" %}
 {% block title %}etusivu{% endblock %}
 {% block content %}
-<h3>Palvelusta löytyvät nuotit:</h3>
+
+<h2>Palvelusta löytyvät nuotit:</h2>
 <ul>
   {% for tune in tunes %}
   <li><a href="/tune/{{ tune.id }}">{{ tune[1]}}</a></li>
   {% endfor %}
 </ul>
+{% if session.user_id %}
+<p>
+  <a href="/add">&gt;&gt; Lisää kappale</a>
+</p>
+{% endif %}
+
 {% endblock %}

@@ -57,4 +57,13 @@ def login():
 def logout():
     users.logout()
     return redirect("/")
+
+@app.route("/add", methods = ["GET", "POST"])
+def add():
+    if request.method == "GET":
+        sql = 'SELECT id, name FROM categories WHERE visible=TRUE'
+        result = db.session.execute(sql)
+        categories = result.fetchall()
+        return render_template("add.html", categories=categories)
     
+

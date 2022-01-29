@@ -28,4 +28,5 @@ def logout():
     del session["user_id"]
     del session["user_name"]
 
-    
+def user_id():
+    return session.get("user_id", 0)

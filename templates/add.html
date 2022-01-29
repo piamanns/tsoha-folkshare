@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Lisää kappale</h2>
+
+{% if session.user_id %}
+<form action="/add" method="POST">
+  <p>
+    <label for="tuneName">Kappaleen nimi:</label><br>
+    <input type="text" id="tuneName" name="name" minlength="1" maxlength="40">
+  <p>
+    <label for="tuneDescription">Lyhyt kuvaus kappaleesta:</label><br>
+    <textarea id="tuneDescription" name="description" rows="5" cols="40" maxlength="1000"></textarea>
+  <p>
+    <label for="tuneNotation">Kappale ABC-notaationa:</label><br>
+    <textarea id ="tuneNotation" name="notation" rows="10" cols="40" maxlength="10000"></textarea><br>
+  <p>
+    <legend>Valitse kategoria:</legend></br>
+    {% for category in categories %}
+    <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"> 
+    <label for="{{ category.name }}"> {{ category.name }}</label>
+    {% endfor %}
+  <p><input type="submit" value="Lisää kappale">  
+</form>
+{% else %}
+<p><a href="/login">Kirjaudu sisään, jos haluat lisätä kappaleen!</a></p>
+{% endif %}
+
+<p><a href="https://abcnotation.com/learn">Miten ABC-notaatiota kirjoitetaan?</a>
+
+<p><a href="/">Takaisin etusivulle</a></p>  
+
+{% endblock %}
