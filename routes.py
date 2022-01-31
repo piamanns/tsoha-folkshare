@@ -2,6 +2,7 @@ from flask import redirect, render_template, request
 from app import app
 from db import db
 import users
+import tunes
 
 @app.route("/")
 def index():
@@ -38,7 +39,7 @@ def register():
         
         if not users.register(username, password1, role):
             return "<p>Rekisteröinti epäonnistui</p>"
-        return "<p>Rekisteröinti onnistui!</p>"
+        return redirect("/")
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
@@ -65,5 +66,15 @@ def add():
         result = db.session.execute(sql)
         categories = result.fetchall()
         return render_template("add.html", categories=categories)
+
+    if request.method == "POST":
+        name = request.form["name"]
+        notation = request.form["notation"]
+        category = request.form.getlist("category")
+        tune_id = tunes.add_tune(name, notation, category)
+        if not tune_id:
+            return "<p>Kappaleen lisääminen epäonnistui</p>"
+        return redirect("/tune/"+str(tune_id))
+        
     
 
