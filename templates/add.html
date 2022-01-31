@@ -9,9 +9,6 @@
     <label for="tuneName">Kappaleen nimi:</label><br>
     <input type="text" id="tuneName" name="name" minlength="1" maxlength="40">
   <p>
-    <label for="tuneDescription">Lyhyt kuvaus kappaleesta:</label><br>
-    <textarea id="tuneDescription" name="description" rows="5" cols="40" maxlength="1000"></textarea>
-  <p>
     <label for="tuneNotation">Kappale ABC-notaationa:</label><br>
     <textarea id ="tuneNotation" name="notation" rows="10" cols="40" maxlength="10000"></textarea><br>
   <p>
@@ -22,6 +19,7 @@
     {% endfor %}
   <p><input type="submit" value="Lisää kappale">  
 </form>
+
 {% else %}
 <p><a href="/login">Kirjaudu sisään, jos haluat lisätä kappaleen!</a></p>
 {% endif %}

@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
-{% block title %}{{ tune[1] }}{% endblock %}
+{% block title %}{{ name }}{% endblock %}
 {% block content %}
 <script>
   var script = document.createElement('script');
   script.onload = function(event) {
-    ABCJS.renderAbc("notation", '{{ tune[2] }}');  
+    ABCJS.renderAbc("notation", '{{ notation }}');  
   }
   script.defer = true;
   script.src = "{{url_for('static', filename='abcjs-basic-min.js')}}";
@@ -14,5 +14,6 @@
 <div id="notation">
   <p>Nuotti latautuu</p>
 </div>
+
 <p><a href="/">Takaisin etusivulle</a></p>  
 {% endblock %}

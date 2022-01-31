@@ -3,6 +3,7 @@ from app import app
 from db import db
 import users
 import tunes
+import sys
 
 @app.route("/")
 def index():
@@ -13,10 +14,11 @@ def index():
 
 @app.route("/tune/<int:id>")
 def tune(id):
-    sql = "SELECT id, name, notation, created FROM tunes WHERE id=:id"
+    sql = "SELECT name, notation FROM tunes WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     tune = result.fetchone()
-    return render_template("tune.html", tune=tune)
+    print(tune, file=sys.stderr)
+    return render_template("tune.html", name=tune[0], notation=tune[1])
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
@@ -61,6 +63,10 @@ def logout():
 
 @app.route("/add", methods = ["GET", "POST"])
 def add():
+    user_id = users.user_id()
+    if user_id == 0:
+        return "<p>Kirjaudu sisään, jos haluat lisätä kappaleen</p>"
+
     if request.method == "GET":
         sql = 'SELECT id, name FROM categories WHERE visible=TRUE'
         result = db.session.execute(sql)
@@ -70,8 +76,8 @@ def add():
     if request.method == "POST":
         name = request.form["name"]
         notation = request.form["notation"]
-        category = request.form.getlist("category")
-        tune_id = tunes.add_tune(name, notation, category)
+        categories = request.form.getlist("category")
+        tune_id = tunes.add_tune(name, notation, categories, user_id)
         if not tune_id:
             return "<p>Kappaleen lisääminen epäonnistui</p>"
         return redirect("/tune/"+str(tune_id))

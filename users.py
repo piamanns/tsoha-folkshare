@@ -12,7 +12,6 @@ def register(username, password, role):
         return False
     return login(username, password)
 
-
 def login(username, password):
     sql = "SELECT id, username, password, role FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
