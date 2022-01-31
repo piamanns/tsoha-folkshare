@@ -15,5 +15,12 @@
   <p>Nuotti latautuu</p>
 </div>
 
+{% if categories %}
+  <p><strong>Kappale on liitetty kategorioihin:</strong></p>
+  {% for category in categories %}
+    {{ category.name }} |
+  {% endfor %}
+{% endif %}
+
 <p><a href="/">Takaisin etusivulle</a></p>  
 {% endblock %}

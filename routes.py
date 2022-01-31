@@ -1,24 +1,20 @@
 from flask import redirect, render_template, request
 from app import app
-from db import db
 import users
 import tunes
 import sys
 
 @app.route("/")
 def index():
-    sql = "SELECT id, name, created FROM tunes ORDER BY id DESC"
-    result = db.session.execute(sql)
-    tunes = result.fetchall()
-    return render_template("index.html", tunes=tunes)
+    all_tunes = tunes.get_all_tunes()
+    return render_template("index.html", tunes=all_tunes)
 
 @app.route("/tune/<int:id>")
 def tune(id):
-    sql = "SELECT name, notation FROM tunes WHERE id=:id"
-    result = db.session.execute(sql, {"id":id})
-    tune = result.fetchone()
+    tune = tunes.get_tune(id)
+    categories = tunes.get_tune_categories(id)
     print(tune, file=sys.stderr)
-    return render_template("tune.html", name=tune[0], notation=tune[1])
+    return render_template("tune.html", name=tune[0], notation=tune[1], categories=categories)
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
@@ -68,10 +64,8 @@ def add():
         return "<p>Kirjaudu sisään, jos haluat lisätä kappaleen</p>"
 
     if request.method == "GET":
-        sql = 'SELECT id, name FROM categories WHERE visible=TRUE'
-        result = db.session.execute(sql)
-        categories = result.fetchall()
-        return render_template("add.html", categories=categories)
+        all_categories = tunes.get_all_categories()
+        return render_template("add.html", categories=all_categories)
 
     if request.method == "POST":
         name = request.form["name"]
