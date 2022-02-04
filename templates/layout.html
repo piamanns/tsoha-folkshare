@@ -3,10 +3,15 @@
 <h1>FolkShare</h1>
 <p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla!
 {% if session.user_id %}
-<p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong> | <a href="/logout">Kirjaudu ulos</a>
+  <p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong> | <a href="/logout">Kirjaudu ulos</a>
 {% else %}
-<p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
+  <p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
 {% endif %}
 <hr>
 {% block content %}
+{% endblock %}
+
+{% block footer%}
+  <hr>
+  <p><a href="/">Takaisin etusivulle</a></p> 
 {% endblock %}
