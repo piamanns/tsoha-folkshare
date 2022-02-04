@@ -7,7 +7,7 @@
 <form action="/add" method="POST">
   <p>
     <label for="tuneName">Kappaleen nimi:</label><br>
-    <input type="text" id="tuneName" name="name" minlength="1" maxlength="40">
+    <input type="text" id="tuneName" name="name" minlength="1" maxlength="50">
   <p>
     <label for="tuneNotation">Kappale ABC-notaationa:</label><br>
     <textarea id ="tuneNotation" name="notation" rows="10" cols="40" maxlength="10000"></textarea><br>
@@ -18,6 +18,7 @@
     <label for="{{ category.name }}"> {{ category.name }}</label>
     {% endfor %}
   <p><input type="submit" value="Lisää kappale">  
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% else %}

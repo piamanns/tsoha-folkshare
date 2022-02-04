@@ -60,6 +60,7 @@ def logout():
 @app.route("/add", methods = ["GET", "POST"])
 def add():
     user_id = users.user_id()
+
     if user_id == 0:
         return "<p>Kirjaudu sisään, jos haluat lisätä kappaleen</p>"
 
@@ -68,8 +69,14 @@ def add():
         return render_template("add.html", categories=all_categories)
 
     if request.method == "POST":
+        users.check_csrf(request.form["csrf_token"])
+
         name = request.form["name"]
+        if len(name) < 1 or len(name) > 50:
+            return "<p>Kappaleen nimen tulee olla 1-50 merkkiä pitkä.</p>"
         notation = request.form["notation"]
+        if len(notation) < 1 or len(notation) > 1500:
+            return "<p>ABC-notaation tulee olla 1-1500 merkkiä pitkä.</p>"  
         categories = request.form.getlist("category")
         tune_id = tunes.add_tune(name, notation, categories, user_id)
         if not tune_id:

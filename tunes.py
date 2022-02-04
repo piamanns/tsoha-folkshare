@@ -1,17 +1,17 @@
 from db import db
 
 def get_all_tunes():
-    sql = "SELECT id, name, created FROM tunes ORDER BY id DESC"
+    sql = "SELECT id, name, created FROM tunes WHERE visible=TRUE ORDER BY id DESC"
     return db.session.execute(sql).fetchall()
 
 def get_tune(id):
-    sql = "SELECT name, notation FROM tunes WHERE id=:id"
+    sql = "SELECT name, notation FROM tunes WHERE id=:id AND visible=TRUE"
     return db.session.execute(sql, {"id":id}).fetchone()
 
 def add_tune(name, notation, categories, user_id):
     try:  
-        sql = "INSERT INTO tunes (name, notation, created, creator_id) VALUES (:name, \
-        :notation, NOW(), :user_id) RETURNING id"
+        sql = "INSERT INTO tunes (name, notation, created, creator_id, visible) VALUES (:name, \
+        :notation, NOW(), :user_id, TRUE) RETURNING id"
         result = db.session.execute(sql, {"name": name, "notation": notation, "user_id": user_id})
         tune_id = result.fetchone()[0]
         for category in categories:
