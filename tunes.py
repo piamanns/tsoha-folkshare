@@ -29,7 +29,19 @@ def get_all_categories():
     return result.fetchall()
 
 def get_tune_categories(tune_id):
-    sql = "SELECT c.name FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
+    sql = "SELECT c.id, c.name FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
           "AND c.id=ct.category_id AND c.visible=TRUE"
     result = db.session.execute(sql, {"tune_id": tune_id})
     return result.fetchall()
+
+def get_category(category_id):
+    sql = "SELECT name FROM categories WHERE id=:category_id AND visible=TRUE"
+    result = db.session.execute(sql, {"category_id": category_id})
+    return result.fetchone()
+
+def get_category_tunes(category_id):
+    sql = "SELECT t.id, t.name, t.created FROM tunes t, categories_tunes ct, categories c WHERE ct.category_id=:category_id " \
+          " AND t.id=ct.tune_id AND c.id=category_id AND t.visible=TRUE AND c.visible=TRUE ORDER BY t.name ASC"
+    result = db.session.execute(sql, {"category_id": category_id})
+    return result.fetchall()
+        

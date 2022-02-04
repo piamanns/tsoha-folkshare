@@ -83,5 +83,10 @@ def add():
             return "<p>Kappaleen lisääminen epäonnistui</p>"
         return redirect("/tune/"+str(tune_id))
         
-    
+@app.route("/category/<int:id>")
+def category(id):
+    category = tunes.get_category(id)
+    category_tunes = tunes.get_category_tunes(id)
+    return render_template("category.html", name=category.name, tunes=category_tunes)
+
 
