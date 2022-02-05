@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username TEXT,
+    username TEXT UNIQUE,
     password TEXT,
     role INTEGER
 );
@@ -16,7 +16,7 @@ CREATE TABLE tunes (
 
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
-    name TEXT,
+    name TEXT UNIQUE,
     creator_id INTEGER REFERENCES users,
     visible BOOLEAN
 );
