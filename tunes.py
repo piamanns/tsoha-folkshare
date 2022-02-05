@@ -26,7 +26,7 @@ def add_tune(name, notation, categories, user_id):
         return False
 
 def get_all_categories():
-    sql = "SELECT id, name FROM categories WHERE visible=TRUE"
+    sql = "SELECT id, name FROM categories WHERE visible=TRUE ORDER BY name ASC"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -48,4 +48,13 @@ def get_category_tunes(category_id):
           "WHERE ct.category_id=:category_id AND c.visible=TRUE AND t.visible=TRUE ORDER BY t.name ASC"	
     result = db.session.execute(sql, {"category_id": category_id})
     return result.fetchall()
-        
+
+def add_category(name, user_id):
+    try:
+        sql = "INSERT INTO categories (name, creator_id, visible) VALUES (:name, " \
+              ":creator_id, TRUE) RETURNING name"
+        result = db.session.execute(sql, {"name": name, "creator_id": user_id})
+        db.session.commit()
+        return result.fetchone()[0]
+    except:
+        return False

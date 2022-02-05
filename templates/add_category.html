@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}lisää kategoria{% endblock %}
+{% block content %}
+
+<h2>Lisää kategoria</h2>
+
+{% if session.user_role == 2 %}
+  <h3>Palvelun nykyiset kategoriat:</h3>
+  {% for category in categories %}
+    <a href="/category/{{ category.id }}">{{ category.name }}</a>
+  {% endfor %}
+  <p>(Huomaathan, että palvelussa ei voi olla useita samannimisiä kategorioita.)</p>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p><strong>{{ message }}</strong></p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form action="/add_category" method="POST">
+    <p>
+      <label for="categoryName">Uuden kategorian nimi:</label><br>
+      <input type="text" id="categoryName" name="name" minlength="1" maxlength="50">
+    <p>
+      <input type="submit" value="Lisää kategoria">  
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  </form>
+
+{% else %}
+  <p>Vain palvelun ylläpitäjät voivat lisätä uusia kategorioita.</p>
+{% endif %}
+
+{% endblock %}

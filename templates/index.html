@@ -9,9 +9,16 @@
   {% endfor %}
 </ul>
 {% if session.user_id %}
-<p>
-  <a href="/add">&gt;&gt; Lisää kappale</a>
-</p>
+  <p>
+    <a href="/add">&gt;&gt; Lisää kappale</a>
+  </p>
+{% endif %}
+
+{% if session.user_role == 2 %}
+  <h3>Ylläpitäjälle:</h3>
+  <p>
+    <a href="/add_category">&gt;&gt; Lisää uusi kategoria</a>
+  </p>
 {% endif %}
 
 {% endblock %}
