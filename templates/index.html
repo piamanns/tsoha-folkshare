@@ -5,7 +5,7 @@
 <h2>Palvelusta löytyvät nuotit:</h2>
 <ul>
   {% for tune in tunes %}
-  <li><a href="/tune/{{ tune.id }}">{{ tune[1]}}</a></li>
+  <li><a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})</li>
   {% endfor %}
 </ul>
 {% if session.user_id %}

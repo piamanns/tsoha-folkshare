@@ -14,7 +14,7 @@ def tune(id):
     tune = tunes.get_tune(id)
     categories = tunes.get_tune_categories(id)
     print(tune, file=sys.stderr)
-    return render_template("tune.html", name=tune[0], notation=tune[1], categories=categories)
+    return render_template("tune.html", tune=tune, categories=categories)
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():

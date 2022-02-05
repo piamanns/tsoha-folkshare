@@ -1,11 +1,13 @@
 from db import db
 
 def get_all_tunes():
-    sql = "SELECT id, name, created FROM tunes WHERE visible=TRUE ORDER BY id DESC"
+    sql = "SELECT t.id, t.name, t.created, u.username FROM tunes t, users u WHERE t.creator_id=u.id " \
+          "AND t.visible=TRUE ORDER BY t.id DESC"
     return db.session.execute(sql).fetchall()
 
 def get_tune(id):
-    sql = "SELECT name, notation FROM tunes WHERE id=:id AND visible=TRUE"
+    sql = "SELECT t.name, t.notation, t.created, u.username FROM tunes t, users u WHERE t.id=:id " \
+          "AND t.creator_id=u.id AND t.visible=TRUE"
     return db.session.execute(sql, {"id":id}).fetchone()
 
 def add_tune(name, notation, categories, user_id):
@@ -40,8 +42,10 @@ def get_category(category_id):
     return result.fetchone()
 
 def get_category_tunes(category_id):
-    sql = "SELECT t.id, t.name, t.created FROM tunes t, categories_tunes ct, categories c WHERE ct.category_id=:category_id " \
-          " AND t.id=ct.tune_id AND c.id=category_id AND t.visible=TRUE AND c.visible=TRUE ORDER BY t.name ASC"
+    sql = "SELECT t.id, t.name, t.created, u.username " \
+          "FROM categories_tunes ct JOIN categories c ON ct.category_id=c.id " \
+          "JOIN tunes t ON ct.tune_id=t.id JOIN users u ON t.creator_id=u.id " \
+          "WHERE ct.category_id=:category_id AND c.visible=TRUE AND t.visible=TRUE ORDER BY t.name ASC"	
     result = db.session.execute(sql, {"category_id": category_id})
     return result.fetchall()
         
