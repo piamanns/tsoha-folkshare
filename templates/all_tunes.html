@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}kaikki kappaleet{% endblock %}
+{% block content %}
+
+<h2>Kaikki kappaleet</h2>
+<ul>
+{% for tune in tunes %}
+  <li>
+    <a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

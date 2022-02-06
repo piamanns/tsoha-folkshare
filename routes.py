@@ -6,15 +6,21 @@ import sys
 
 @app.route("/")
 def index():
-    all_tunes = tunes.get_all_tunes()
-    return render_template("index.html", tunes=all_tunes)
+    latest_tunes = tunes.get_latest_tunes()
+    categories = tunes.get_all_categories()
+    return render_template("index.html", tunes=latest_tunes, categories=categories)
 
 @app.route("/tune/<int:id>")
 def tune(id):
     tune = tunes.get_tune(id)
     categories = tunes.get_tune_categories(id)
-    print(tune, file=sys.stderr)
+    #print(tune, file=sys.stderr)
     return render_template("tune.html", tune=tune, categories=categories)
+
+@app.route("/tune")
+def all_tunes():
+    all_tunes = tunes.get_all_tunes()
+    return render_template("all_tunes.html", tunes=all_tunes)
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
