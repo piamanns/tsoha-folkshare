@@ -15,6 +15,8 @@ def tune(id):
     tune = tunes.get_tune(id)
     categories = tunes.get_tune_categories(id)
     #print(tune, file=sys.stderr)
+    if not tune:
+        return render_template("error.html", message="Kappaletta ei löytynyt.")
     return render_template("tune.html", tune=tune, categories=categories)
 
 @app.route("/tune")
