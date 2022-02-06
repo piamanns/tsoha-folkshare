@@ -30,19 +30,19 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         if len(username) < 1 or len(username) > 20:
-            return "<p>Käyttäjätunnuksen tulee olla 1-20 merkkiä pitkä</p>"
+            return render_template("error.html", message="Käyttäjätunnuksen tulee olla 1-20 merkkiä pitkä.")
 
         password1 = request.form["password1"]
         password2 = request.form["password2"]
         if password1 != password2:
-            return "<p>Salasanat eivät olleet samoja molemmissa kentissä</p>"
+            return render_template("error.html", message="Salasanat eivät olleet samoja molemmissa kentissä.")
 
         role = request.form["role"]
         if role not in ("1", "2"):
-            return "<p><Virheellinen käyttäjärooli/p>"
+            return render_template("error.html", message="Virheellinen käyttäjärooli.")
         
         if not users.register(username, password1, role):
-            return "<p>Rekisteröinti epäonnistui</p>"
+            return render_template("error.html", message="Käyttäjätunnuksen rekisteröinti epäonnistui. Palvelussa saattaa jo olla samanniminen käyttäjä!")
         return redirect("/")
 
 @app.route("/login", methods = ["GET", "POST"])
@@ -55,7 +55,7 @@ def login():
         password = request.form["password"]
 
         if not users.login(username, password):
-            return "<p>Kirjautuminen epäonnistui</p>"
+            return render_template("error.html", message="Kirjautuminen epäonnistui.")
         return redirect("/")
 
 @app.route("/logout")
@@ -68,7 +68,7 @@ def add():
     user_id = users.user_id()
 
     if user_id == 0:
-        return "<p>Kirjaudu sisään, jos haluat lisätä kappaleen</p>"
+        return render_template("error.html", message="Kirjaudu sisään, jos haluat lisätä kappaleen.")
 
     if request.method == "GET":
         all_categories = tunes.get_all_categories()
@@ -79,21 +79,21 @@ def add():
 
         name = request.form["name"]
         if len(name) < 1 or len(name) > 50:
-            return "<p>Kappaleen nimen tulee olla 1-50 merkkiä pitkä.</p>"
+            return render_template("error.html", message="Kappaleen nimen tulee olla 1-50 merkkiä pitkä.")
         notation = request.form["notation"]
         if len(notation) < 1 or len(notation) > 1500:
-            return "<p>ABC-notaation tulee olla 1-1500 merkkiä pitkä.</p>"  
+            return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
         categories = request.form.getlist("category")
         tune_id = tunes.add_tune(name, notation, categories, user_id)
         if not tune_id:
-            return "<p>Kappaleen lisääminen epäonnistui</p>"
+            return render_template("error.html", message="Kappaleen lisääminen epäonnistui.")
         return redirect("/tune/"+str(tune_id))
         
 @app.route("/category/<int:id>")
 def category(id):
     category = tunes.get_category(id)
     if not category:
-        return "<p>Virheellinen kategoria</p>"
+        return render_template("error.html", message="Virheellinen kategoria.")
     category_tunes = tunes.get_category_tunes(id)
     return render_template("category.html", name=category.name, tunes=category_tunes)
 
@@ -102,7 +102,7 @@ def add_category():
     user_role = users.user_role()
 
     if user_role < 2:
-        return "<p>Vain ylläpitäjä voi lisätä uusia kategorioita</p>"
+        return render_template("error.html", message="Vain ylläpitäjä voi lisätä uusia kategorioita")
 
     if request.method == "GET":
         categories = tunes.get_all_categories()
@@ -114,12 +114,11 @@ def add_category():
 
         name = request.form["name"]
         if len(name) < 1 or len(name) > 50:
-            return "<p>Kategorian nimen tulee olla 1-50 merkkiä pitkä.</p>"
+            return render_template("error.html", message="Kategorian nimen tulee olla 1-50 merkkiä pitkä.")
         new_category = tunes.add_category(name, user_id)
         if not new_category:
-            return "<p>Kategorian lisääminen epäonnistui</p>"
+            return render_template("error.html", message="Kategorian lisääminen epäonnistui")
         else:
             flash("Kategoria "+str(new_category)+" lisättiin palveluun.")
         return redirect("/add_category")
-        
-
+                
