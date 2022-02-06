@@ -30,6 +30,8 @@ def login(username, password):
 def logout():
     del session["user_id"]
     del session["user_name"]
+    del session["user_role"]
+    del session["csrf_token"]
 
 def user_id():
     return session.get("user_id", 0)
