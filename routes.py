@@ -86,7 +86,9 @@ def add():
         if len(notation) < 1 or len(notation) > 1500:
             return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
         categories = request.form.getlist("category")
-        tune_id = tunes.add_tune(name, notation, categories, user_id)
+        # Escape row changes in notation data
+        sanitized = notation.replace("\r\n","\\n")
+        tune_id = tunes.add_tune(name, sanitized, categories, user_id)
         if not tune_id:
             return render_template("error.html", message="Kappaleen lisääminen epäonnistui.")
         return redirect("/tune/"+str(tune_id))
