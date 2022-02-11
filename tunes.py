@@ -11,7 +11,7 @@ def get_latest_tunes():
     return db.session.execute(sql).fetchall()
 
 def get_tune(id):
-    sql = "SELECT t.name, t.notation, t.created, u.username FROM tunes t, users u WHERE t.id=:id " \
+    sql = "SELECT t.id, t.name, t.notation, t.created, t.creator_id, u.username FROM tunes t, users u WHERE t.id=:id " \
           "AND t.creator_id=u.id AND t.visible=TRUE"
     return db.session.execute(sql, {"id":id}).fetchone()
 
@@ -29,6 +29,17 @@ def add_tune(name, notation, categories, user_id):
         return tune_id
     except:
         return False
+
+def delete_tune(id):
+    sql = "DELETE FROM tunes WHERE id=:id RETURNING name"
+    result = db.session.execute(sql, {"id": id})
+    db.session.commit()
+    return result.fetchone()[0]
+
+def get_creator(id):
+    sql = "SELECT creator_id FROM tunes WHERE id=:id"
+    result = db.session.execute(sql, {"id": id})
+    return result.fetchone()[0]
 
 def get_all_categories():
     sql = "SELECT id, name FROM categories WHERE visible=TRUE ORDER BY name ASC"

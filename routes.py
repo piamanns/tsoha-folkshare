@@ -125,4 +125,17 @@ def add_category():
         else:
             flash("Kategoria "+str(new_category)+" lisättiin palveluun.")
         return redirect("/add_category")
-                
+
+@app.route("/remove/tune/<int:id>", methods = ["POST"])
+def remove_tune(id):
+    users.check_csrf(request.form["csrf_token"])
+    user_id = users.user_id()
+    user_role = users.user_role()
+    creator_id = tunes.get_creator(id)
+
+    if user_id == creator_id or user_role >= 2:
+        deleted_name = tunes.delete_tune(id)
+        flash("Kappale "+str(deleted_name)+" poistettiin palvelusta.")
+        return redirect("/")
+    else:
+        return render_template("error.html", message="Sinulla ei ole oikeuksia poistaa tätä kappaletta.")

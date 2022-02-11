@@ -23,6 +23,6 @@ CREATE TABLE categories (
 
 CREATE TABLE categories_tunes (
     category_id INTEGER REFERENCES categories, 
-    tune_id INTEGER REFERENCES tunes,
+    tune_id INTEGER REFERENCES tunes ON DELETE CASCADE,
     PRIMARY KEY (category_id, tune_id)
 );
