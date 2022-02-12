@@ -74,7 +74,7 @@ def add_tune():
 
     if request.method == "GET":
         all_categories = tunes.get_all_categories()
-        return render_template("add.html", categories=all_categories)
+        return render_template("add_tune.html", categories=all_categories)
 
     if request.method == "POST":
         users.check_csrf(request.form["csrf_token"])

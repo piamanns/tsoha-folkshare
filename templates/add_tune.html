@@ -4,7 +4,7 @@
 <h2>Lisää kappale</h2>
 
 {% if session.user_id %}
-<form action="/add" method="POST">
+<form action="/add_tune" method="POST">
   <p>
     <label for="tuneName">Kappaleen nimi:</label><br>
     <input type="text" id="tuneName" name="name" minlength="1" maxlength="50">
@@ -14,15 +14,15 @@
   <p>
     <legend>Valitse kategoria:</legend></br>
     {% for category in categories %}
-    <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"> 
-    <label for="{{ category.name }}"> {{ category.name }}</label>
+      <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"> 
+      <label for="{{ category.name }}"> {{ category.name }}</label>
     {% endfor %}
   <p><input type="submit" value="Lisää kappale">  
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% else %}
-<p><a href="/login">Kirjaudu sisään, jos haluat lisätä kappaleen!</a></p>
+  <p><a href="/login">Kirjaudu sisään, jos haluat lisätä kappaleen!</a></p>
 {% endif %}
 
 <p><a href="https://abcnotation.com/learn">Miten ABC-notaatiota kirjoitetaan?</a>
