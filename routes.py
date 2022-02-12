@@ -152,3 +152,38 @@ def delete_tune(id):
     else:
         return render_template("error.html", message="Sinulla ei ole oikeuksia poistaa tätä kappaletta.")
 
+@app.route("/update_tune/<int:id>", methods = ["GET", "POST"])
+def update_tune(id):
+    user_id = users.user_id()
+    user_role = users.user_role()
+    creator_id = tunes.get_creator(id)
+
+    if user_id != creator_id and user_role < 2:
+        return render_template("error.html", message="Sinulla ei ole oikeuksia muokata tätä kappaletta.")
+
+    if request.method == "GET":
+        tune = tunes.get_tune(id)
+        notation = tune.notation
+        with_linebreaks = notation.replace("\\n", "\r\n")
+        tune_categories = tunes.get_tune_categories(id, False)
+        tune_category_ids = []
+        for tune_category in tune_categories:
+            tune_category_ids.append(tune_category[0])
+        categories = tunes.get_all_categories()
+        return render_template("update_tune.html", tune=tune, notation=with_linebreaks, tune_category_ids=tune_category_ids, categories=categories)          
+ 
+    if request.method == "POST":
+        users.check_csrf(request.form["csrf_token"])
+
+        name = request.form["name"]
+        if len(name) < 1 or len(name) > 50:
+            return render_template("error.html", message="Kappaleen nimen tulee olla 1-50 merkkiä pitkä.")
+        notation = request.form["notation"]
+        if len(notation) < 1 or len(notation) > 1500:
+            return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
+        categories = request.form.getlist("category")
+        # Escape row changes in notation data
+        sanitized = notation.replace("\r\n","\\n")
+        tunes.update_tune(id, name, sanitized, categories)
+        return redirect("/tune/"+str(id))
+    

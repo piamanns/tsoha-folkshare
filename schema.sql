@@ -11,7 +11,8 @@ CREATE TABLE tunes (
     notation TEXT,
     created TIMESTAMP WITHOUT TIME ZONE,
     creator_id INTEGER REFERENCES users,
-    visible BOOLEAN
+    visible BOOLEAN,
+    updated TIMESTAMP WITHOUT TIME ZONE
 );
 
 CREATE TABLE categories (

@@ -11,8 +11,8 @@ def get_latest_tunes():
     return db.session.execute(sql).fetchall()
 
 def get_tune(id):
-    sql = "SELECT t.id, t.name, t.notation, t.created, t.creator_id, u.username FROM tunes t, users u WHERE t.id=:id " \
-          "AND t.creator_id=u.id AND t.visible=TRUE"
+    sql = "SELECT t.id, t.name, t.notation, t.created, t.creator_id, t.updated, u.username " \
+          "FROM tunes t, users u WHERE t.id=:id AND t.creator_id=u.id AND t.visible=TRUE"
     return db.session.execute(sql, {"id":id}).fetchone()
 
 def add_tune(name, notation, categories, user_id):
@@ -30,6 +30,11 @@ def add_tune(name, notation, categories, user_id):
     except:
         return False
 
+def update_tune(id, name, notation, categories):
+    sql = "UPDATE tunes SET name=:name, notation=:notation, updated=NOW() WHERE id=:id"
+    db.session.execute(sql, {"id": id, "name": name, "notation": notation})
+    db.session.commit()
+
 def delete_tune(id):
     sql = "DELETE FROM tunes WHERE id=:id RETURNING name"
     result = db.session.execute(sql, {"id": id})
@@ -42,16 +47,20 @@ def get_creator(id):
     return result.fetchone()[0]
 
 def get_all_categories(include_hidden=False):
-    if (include_hidden):
+    if include_hidden:
         sql = "SELECT id, name, visible FROM categories ORDER BY name" 
     else:
         sql = "SELECT id, name FROM categories WHERE visible=TRUE ORDER BY name"
     result = db.session.execute(sql)
     return result.fetchall()
 
-def get_tune_categories(tune_id):
-    sql = "SELECT c.id, c.name FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
-          "AND c.id=ct.category_id AND c.visible=TRUE"
+def get_tune_categories(tune_id, include_name=True):
+    if include_name:
+        sql = "SELECT c.id, c.name FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
+              "AND c.id=ct.category_id AND c.visible=TRUE"
+    else:
+        sql="SELECT c.id FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
+            "AND c.id=ct.category_id AND c.visible=TRUE"
     result = db.session.execute(sql, {"tune_id": tune_id})
     return result.fetchall()
 

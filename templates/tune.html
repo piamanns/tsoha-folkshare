@@ -20,7 +20,7 @@
   </form>
 {% endif %}
 
-<p>Lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})</p>
+<p>Lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }}{% if tune.updated %}, muokattu {{ tune.updated.strftime("%d.%m.%Y") }}{% endif %})</p>
 
 <div id="notation">
   <p>Nuotti latautuu</p>
@@ -32,4 +32,11 @@
     <a href="/category/{{ category.id }}">{{ category.name }}</a> |
   {% endfor %}
 {% endif %}
+
+{% if session.user_id == tune.creator_id or session.user_role == 2 %}
+  <form action="/update_tune/{{ tune.id }}" method="GET" style="margin-top: 1em">
+    <button>Muokkaa kappaletta</button>
+  </form>
+{% endif %}
+
 {% endblock %}
