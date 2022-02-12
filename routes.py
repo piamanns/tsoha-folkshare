@@ -65,8 +65,8 @@ def logout():
     users.logout()
     return redirect("/")
 
-@app.route("/add", methods = ["GET", "POST"])
-def add():
+@app.route("/add_tune", methods = ["GET", "POST"])
+def add_tune():
     user_id = users.user_id()
 
     if user_id == 0:
@@ -138,8 +138,8 @@ def set_category_visibility():
       flash("Muutokset kategorioiden näkyvyyteen tallennettiin.")
       return redirect("/add_category")
 
-@app.route("/remove/tune/<int:id>", methods = ["POST"])
-def remove_tune(id):
+@app.route("/delete_tune/<int:id>", methods = ["POST"])
+def delete_tune(id):
     users.check_csrf(request.form["csrf_token"])
     user_id = users.user_id()
     user_role = users.user_role()

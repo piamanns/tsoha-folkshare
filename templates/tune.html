@@ -14,7 +14,7 @@
 <h2>{{ tune.name }}</h2>
 
 {% if session.user_id == tune.creator_id or session.user_role == 2 %}
-  <form action="/remove/tune/{{ tune.id }}" method="post">
+  <form action="/delete_tune/{{ tune.id }}" method="post">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <button>Poista kappale</button>
   </form>
