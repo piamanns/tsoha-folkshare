@@ -2,14 +2,6 @@
 {% block title %}etusivu{% endblock %}
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-        <p><strong>{{ message }}</strong></p>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-
 <h2>Viimeksi lisätyt nuotit</h2>
 <ul>
   {% for tune in tunes %}

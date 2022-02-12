@@ -15,14 +15,6 @@
   {% endfor %}
   <p>(Huomaathan, että palvelussa ei voi olla useita samannimisiä kategorioita.)</p>
 
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-        <p><strong>{{ message }}</strong></p>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-
   <form action="/add_category" method="POST">
     <p>
       <label for="category_name">Uuden kategorian nimi:</label><br>
@@ -48,7 +40,6 @@
       <input type="submit" value="Tallenna valinnat">  
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
-
 
 {% else %}
   <p>Vain palvelun ylläpitäjät voivat hallinnoida kategorioita.</p>

@@ -8,6 +8,15 @@
   <p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
 {% endif %}
 <hr>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div style="border:1px solid green; border-radius: 3px; padding: 5px;"><strong>{{ message }}</strong></div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
 {% block content %}
 {% endblock %}
 
