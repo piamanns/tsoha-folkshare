@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}lisää kategoria{% endblock %}
+{% block content %}
+
+<h2>Lisää kategoria</h2>
+
+{% if session.user_role == 2 %}
+  <h3>Palvelun nykyiset kategoriat:</h3>
+  {% for category in categories %}
+      {% if category.visible %}
+        <a href="/category/{{ category.id }}">{{ category.name }}</a>
+      {% else %}
+        <span style="color:gray">{{ category.name }}</span>
+      {% endif %}
+  {% endfor %}
+  <p>(Huomaathan, että palvelussa ei voi olla useita samannimisiä kategorioita.)</p>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p><strong>{{ message }}</strong></p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form action="/add_category" method="POST">
+    <p>
+      <label for="category_name">Uuden kategorian nimi:</label><br>
+      <input type="text" id="category_name" name="name" minlength="1" maxlength="50">
+    <p>
+      <input type="submit" value="Lisää kategoria">  
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  </form>
+
+  <h2>Valitse näytettävät kategoriat:</h2>
+  <form action="/set_category_visibility" method="POST">
+    {% for category in categories %}
+      <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}" 
+        {% if category.visible %}
+          checked
+          {% else %}
+            style="color:gray;"
+        {% endif %}
+      > 
+      <label for="{{ category.name }}"> {{ category.name }} </label>
+    {% endfor %}
+    <p>
+      <input type="submit" value="Tallenna valinnat">  
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  </form>
+
+
+{% else %}
+  <p>Vain palvelun ylläpitäjät voivat hallinnoida kategorioita.</p>
+{% endif %}
+
+{% endblock %}

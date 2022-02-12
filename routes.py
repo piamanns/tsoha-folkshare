@@ -97,7 +97,7 @@ def add():
 def category(id):
     category = tunes.get_category(id)
     if not category:
-        return render_template("error.html", message="Virheellinen kategoria.")
+        return render_template("error.html", message="Kategoriaa ei löytynyt.")
     category_tunes = tunes.get_category_tunes(id)
     return render_template("category.html", name=category.name, tunes=category_tunes)
 
@@ -109,8 +109,9 @@ def add_category():
         return render_template("error.html", message="Vain ylläpitäjä voi lisätä uusia kategorioita")
 
     if request.method == "GET":
-        categories = tunes.get_all_categories()
-        return render_template("add_category.html", categories=categories)
+        # Get all categories, including hidden ones
+        categories = tunes.get_all_categories(True)
+        return render_template("category_admin.html", categories=categories)
     
     if request.method == "POST":
         users.check_csrf(request.form["csrf_token"])
@@ -124,7 +125,18 @@ def add_category():
             return render_template("error.html", message="Kategorian lisääminen epäonnistui")
         else:
             flash("Kategoria "+str(new_category)+" lisättiin palveluun.")
-        return redirect("/add_category")
+        return redirect("/add_category")    
+
+@app.route("/set_category_visibility", methods = ["POST"])
+def set_category_visibility():
+      users.check_csrf(request.form["csrf_token"])
+      if users.user_role() < 2:
+          return render_template("error.html", message="Vain ylläpitäjä voi muokata kategorioita.")  
+   
+      categories = request.form.getlist("category")
+      tunes.set_category_visibility(categories)
+      flash("Muutokset kategorioiden näkyvyyteen tallennettiin.")
+      return redirect("/add_category")
 
 @app.route("/remove/tune/<int:id>", methods = ["POST"])
 def remove_tune(id):
@@ -139,3 +151,4 @@ def remove_tune(id):
         return redirect("/")
     else:
         return render_template("error.html", message="Sinulla ei ole oikeuksia poistaa tätä kappaletta.")
+

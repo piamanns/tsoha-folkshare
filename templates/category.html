@@ -3,11 +3,17 @@
 {% block content %}
 
 <h2>Kappaleet kategoriassa {{ name }}</h2>
-<ul>
-{% for tune in tunes %}
-  <li>
-    <a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})
-  </li>
-{% endfor %}
-</ul>
+
+{% if tunes %}
+  <ul>
+    {% for tune in tunes %}
+      <li>
+        <a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Kategoriaan ei ole vielä liitetty kappaleita.</p>
+{% endif %}
+  
 {% endblock %}

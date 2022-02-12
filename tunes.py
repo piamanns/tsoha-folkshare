@@ -41,8 +41,11 @@ def get_creator(id):
     result = db.session.execute(sql, {"id": id})
     return result.fetchone()[0]
 
-def get_all_categories():
-    sql = "SELECT id, name FROM categories WHERE visible=TRUE ORDER BY name ASC"
+def get_all_categories(include_hidden=False):
+    if (include_hidden):
+        sql = "SELECT id, name, visible FROM categories ORDER BY name" 
+    else:
+        sql = "SELECT id, name FROM categories WHERE visible=TRUE ORDER BY name"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -74,3 +77,13 @@ def add_category(name, user_id):
         return result.fetchone()[0]
     except:
         return False
+
+def set_category_visibility(categories):
+    # Show selected
+    cat_list = tuple(categories)
+    sql = "UPDATE categories SET visible=TRUE WHERE id IN :list"
+    db.session.execute(sql, {"list": cat_list})
+    # Hide deselected
+    sql = "UPDATE categories SET visible=FALSE WHERE id NOT IN :list"
+    db.session.execute(sql, {"list": cat_list})
+    db.session.commit()
