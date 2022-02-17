@@ -27,3 +27,12 @@ CREATE TABLE categories_tunes (
     tune_id INTEGER REFERENCES tunes ON DELETE CASCADE,
     PRIMARY KEY (category_id, tune_id)
 );
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    creator_id INTEGER REFERENCES users,
+    tune_id INTEGER REFERENCES tunes,
+    comment TEXT,
+    created TIMESTAMP WITHOUT TIME ZONE,
+    visible BOOLEAN
+);

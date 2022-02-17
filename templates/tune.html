@@ -20,7 +20,8 @@
   </form>
 {% endif %}
 
-<p>Lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }}{% if tune.updated %}, muokattu {{ tune.updated.strftime("%d.%m.%Y") }}{% endif %})</p>
+<p>Lisääjä <strong>{{ tune.username }}</strong> 
+  ({{ tune.created.strftime("%d.%m.%Y") }}{% if tune.updated %}, muokattu {{ tune.updated.strftime("%d.%m.%Y") }}{% endif %})</p>
 
 <div id="notation">
   <p>Nuotti latautuu</p>
@@ -36,6 +37,26 @@
 {% if session.user_id == tune.creator_id or session.user_role == 2 %}
   <form action="/update_tune/{{ tune.id }}" method="GET" style="margin-top: 1em">
     <button>Muokkaa kappaletta</button>
+  </form>
+{% endif %}
+
+<h3>Kommentit:</h3>
+{% if comments %}
+  <ul>
+    {% for comment in comments%}
+      <li>{{ comment.comment }} (<strong>{{ comment.username }}</strong>, {{ comment.created.strftime("%d.%m.%Y") }})</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if session.user_id%}
+  <form action="/add_comment" method="POST">  
+    <label for="comment"><strong>Lisää kommentti:</strong></label><br>
+    <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000">{{ notation }}</textarea>
+    <input type="hidden" name="tune_id" value="{{ tune.id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <br>
+    <button>Lähetä kommentti</button>
   </form>
 {% endif %}
 

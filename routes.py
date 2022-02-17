@@ -2,6 +2,7 @@ from flask import flash, redirect, render_template, request
 from app import app
 import users
 import tunes
+import comments
 import sys
 
 @app.route("/")
@@ -13,11 +14,13 @@ def index():
 @app.route("/tune/<int:id>")
 def tune(id):
     tune = tunes.get_tune(id)
-    categories = tunes.get_tune_categories(id)
+    tune_categories = tunes.get_tune_categories(id)
+    tune_comments = comments.get_tune_comments(id)
+    print(tune_comments)
     #print(tune, file=sys.stderr)
     if not tune:
         return render_template("error.html", message="Kappaletta ei löytynyt.")
-    return render_template("tune.html", tune=tune, categories=categories)
+    return render_template("tune.html", tune=tune, categories=tune_categories, comments=tune_comments)
 
 @app.route("/tune")
 def all_tunes():
@@ -188,4 +191,18 @@ def update_tune(id):
         tunes.update_tune(id, name, sanitized, categories)
         flash("Muutokset tallennettiin.")
         return redirect("/tune/"+str(id))
-    
+
+@app.route("/add_comment", methods = ["POST"])
+def add_comment():
+    users.check_csrf(request.form["csrf_token"])
+    user_id = users.user_id()
+    if user_id == 0:
+        return render_template("error.html", message="Vain kirjautuneet käyttäjät voivat kommentoida kappaleita.")
+
+    tune_id = request.form["tune_id"]
+    comment = request.form["comment"]
+    if len(comment) < 1 or len(comment) > 1000:
+        return render_template("error.html", message="Kommentin tulee olla 1-1000 merkkiä pitkä.")
+    comments.add_comment(user_id, tune_id, comment)
+    flash("Kommenttisi lisättiin.")
+    return redirect("/tune/"+str(tune_id))
