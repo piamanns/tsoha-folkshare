@@ -182,8 +182,10 @@ def update_tune(id):
         if len(notation) < 1 or len(notation) > 1500:
             return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
         categories = request.form.getlist("category")
+
         # Escape row changes in notation data
         sanitized = notation.replace("\r\n","\\n")
         tunes.update_tune(id, name, sanitized, categories)
+        flash("Muutokset tallennettiin.")
         return redirect("/tune/"+str(id))
     
