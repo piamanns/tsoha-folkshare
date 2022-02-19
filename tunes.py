@@ -61,4 +61,10 @@ def get_tune_categories(tune_id, include_name=True):
             "AND c.id=ct.category_id AND c.visible=TRUE"
     result = db.session.execute(sql, {"tune_id": tune_id})
     return result.fetchall()
+
+def search_tunes(query):
+    sql = "SELECT t.id, t.name, t.created, u.username FROM tunes t, users u WHERE t.name ILIKE :query " \
+          "AND t.creator_id=u.id AND t.visible=TRUE"
+    result = db.session.execute(sql, {"query": "%"+query+"%"})
+    return result.fetchall()
     

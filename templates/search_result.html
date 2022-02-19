@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}haku{% endblock %}
+{% block content %}
+
+<h2>Haku</h2>
+
+<p>Haku sanalla "<strong>{{ query }}</strong>" tuotti tuloksen: </p>
+
+  {% if result %}
+    <ul>
+      {% for tune in result %}
+        <li><a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})</li>
+      {% endfor %}
+    </ul>  
+  {% else %}
+    <p>(ei tuloksia)</p>  
+  {% endif %}
+
+<h3>Tee uusi haku:</h3>
+<form action="/search" method="GET">
+  <label for="query">Hae nuottia kappaleen nimellä:</label><br>
+    <input type="text" id="query" name="query" minlength="1" maxlength="50">
+    <input type="submit" value="Hae">
+</form>
+
+{% endblock %}

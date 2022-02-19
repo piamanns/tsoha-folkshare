@@ -2,6 +2,19 @@
 {% block title %}etusivu{% endblock %}
 {% block content %}
 
+{% if session.user_id %}
+  <p>
+    <a href="/add_tune">&gt;&gt; Lisää uusi kappale</a>
+  </p>
+{% endif %}
+
+<h2>Haku</h2>
+<form action="/search" method="GET">
+  <label for="query">Hae nuottia kappaleen nimellä:</label><br>
+    <input type="text" id="query" name="query" minlength="1" maxlength="50">
+    <input type="submit" value="Hae">
+</form>
+
 <h2>Viimeksi lisätyt nuotit</h2>
 <ul>
   {% for tune in tunes %}
@@ -9,12 +22,6 @@
   {% endfor %}
 </ul>
 <p><a href="/tune">&gt;&gt; Näytä kaikki</a></p>
-
-{% if session.user_id %}
-  <p>
-    <a href="/add_tune">&gt;&gt; Lisää kappale</a>
-  </p>
-{% endif %}
 
 <h2>Selaa kappaleita kategorioittain</h2>
 <ul>

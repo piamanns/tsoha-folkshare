@@ -228,4 +228,10 @@ def delete_comment(id):
     commented_tune = comments.delete_comment(id)
     flash("Kommentti poistettiin.")
     return redirect("/tune/"+str(commented_tune))
+
+@app.route("/search")
+def search():
+    query = request.args["query"]
+    result = tunes.search_tunes(query)
+    return render_template("search_result.html", result=result, query=query)
     
