@@ -102,3 +102,9 @@ def set_category_visibility(categories):
     sql = "UPDATE categories SET visible=FALSE WHERE id NOT IN :list"
     db.session.execute(sql, {"list": cat_list})
     db.session.commit()
+
+def delete_category(category_id):
+    sql = "DELETE FROM categories WHERE id=:category_id RETURNING name"
+    result = db.session.execute(sql, {"category_id": category_id})
+    db.session.commit()
+    return result.fetchone()[0]

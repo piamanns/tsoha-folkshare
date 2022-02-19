@@ -41,6 +41,18 @@
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
 
+  <h2>Poista kategoria kokonaan</h2>
+  <p>Poista kategoria palvelusta. Kategoriaan liitetyt kappaleet säilyvät palvelussa!</p>
+  <form action="/delete_category" method="POST">
+    <ul style="list-style-type: none; padding-inline-start: 0;">
+    {% for category in categories %}
+      <li><input type="radio" name="category_id" value="{{ category.id }}"> {{ category.name }}</li>
+    {% endfor %}
+    </ul>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <input type="submit" value="Poista kategoria">  
+  </form>
+
 {% else %}
   <p>Vain palvelun ylläpitäjät voivat hallinnoida kategorioita.</p>
 {% endif %}

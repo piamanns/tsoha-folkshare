@@ -108,7 +108,7 @@ def add_category():
     user_role = users.user_role()
 
     if user_role < 2:
-        return render_template("error.html", message="Vain ylläpitäjä voi lisätä uusia kategorioita")
+        return render_template("error.html", message="Vain ylläpitäjä voi lisätä uusia kategorioita.")
 
     if request.method == "GET":
         # Get all categories, including hidden ones
@@ -138,6 +138,16 @@ def set_category_visibility():
       categories = request.form.getlist("category")
       tunes.set_category_visibility(categories)
       flash("Muutokset kategorioiden näkyvyyteen tallennettiin.")
+      return redirect("/add_category")
+
+@app.route("/delete_category", methods = ["POST"])
+def delete_category():
+      users.check_csrf(request.form["csrf_token"])
+      if users.user_role() < 2:
+          return render_template("error.html", message="Vain ylläpitäjä voi poistaa kategorioita.")
+      category_id = request.form["category_id"]      
+      deleted_name = tunes.delete_category(category_id)
+      flash(f"Kategoria {deleted_name} poistettiin palvelusta.")
       return redirect("/add_category")
 
 @app.route("/delete_tune/<int:id>", methods = ["POST"])
