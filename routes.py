@@ -16,7 +16,6 @@ def tune(id):
     tune = tunes.get_tune(id)
     tune_categories = tunes.get_tune_categories(id)
     tune_comments = comments.get_tune_comments(id)
-    print(tune_comments)
     #print(tune, file=sys.stderr)
     if not tune:
         return render_template("error.html", message="Kappaletta ei löytynyt.")
@@ -203,6 +202,19 @@ def add_comment():
     comment = request.form["comment"]
     if len(comment) < 1 or len(comment) > 1000:
         return render_template("error.html", message="Kommentin tulee olla 1-1000 merkkiä pitkä.")
-    comments.add_comment(user_id, tune_id, comment)
+    commented_tune = comments.add_comment(user_id, tune_id, comment)
     flash("Kommenttisi lisättiin.")
-    return redirect("/tune/"+str(tune_id))
+    return redirect("/tune/"+str(commented_tune))
+
+@app.route("/delete_comment/<int:id>", methods = ["POST"])
+def delete_comment(id):
+    users.check_csrf(request.form["csrf_token"])
+    user_id = users.user_id()
+    user_role = users.user_role()
+    if user_id == 0 or user_role < 2:
+        return render_template("error.html", message="Vain ylläpitäjä voi poistaa kommentteja.")
+    
+    commented_tune = comments.delete_comment(id)
+    flash("Kommentti poistettiin.")
+    return redirect("/tune/"+str(commented_tune))
+    

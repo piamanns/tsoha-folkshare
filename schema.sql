@@ -31,7 +31,7 @@ CREATE TABLE categories_tunes (
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     creator_id INTEGER REFERENCES users,
-    tune_id INTEGER REFERENCES tunes,
+    tune_id INTEGER REFERENCES tunes ON DELETE CASCADE,
     comment TEXT,
     created TIMESTAMP WITHOUT TIME ZONE,
     visible BOOLEAN

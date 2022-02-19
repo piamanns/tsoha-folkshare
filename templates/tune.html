@@ -44,9 +44,17 @@
 {% if comments %}
   <ul>
     {% for comment in comments%}
-      <li>{{ comment.comment }} (<strong>{{ comment.username }}</strong>, {{ comment.created.strftime("%d.%m.%Y") }})</li>
+      <li>
+        {{ comment.comment }} (<strong>{{ comment.username }}</strong>, {{ comment.created.strftime("%d.%m.%Y") }})
+        <form action="/delete_comment/{{ comment.id }}" method="POST" style="display: inline">
+          <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+          <button>Poista kommentti</button>
+        </form>
+      </li>
     {% endfor %}
   </ul>
+{% else %}
+  <p>-</p>  
 {% endif %}
 
 {% if session.user_id%}
