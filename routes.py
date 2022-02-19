@@ -8,7 +8,7 @@ import sys
 
 @app.route("/")
 def index():
-    latest_tunes = tunes.get_latest_tunes()
+    latest_tunes = tunes.get_all_tunes(10)
     categories = cats.get_all_categories()
     return render_template("index.html", tunes=latest_tunes, categories=categories)
 

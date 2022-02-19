@@ -1,14 +1,10 @@
 from db import db
 
-def get_all_tunes():
+def get_all_tunes(limit=None):
     sql = "SELECT t.id, t.name, t.created, u.username FROM tunes t, users u WHERE t.creator_id=u.id " \
-          "AND t.visible=TRUE ORDER BY t.id DESC"
-    return db.session.execute(sql).fetchall()
-
-def get_latest_tunes():
-    sql = "SELECT t.id, t.name, t.created, u.username FROM tunes t, users u WHERE t.creator_id=u.id " \
-          "AND t.visible=TRUE ORDER BY t.id DESC LIMIT 10"
-    return db.session.execute(sql).fetchall()
+          "AND t.visible=TRUE ORDER BY t.id DESC LIMIT :limit"
+    result = db.session.execute(sql, {"limit": limit})
+    return result.fetchall()
 
 def get_tune(id):
     sql = "SELECT t.id, t.name, t.notation, t.created, t.creator_id, t.updated, u.username " \
