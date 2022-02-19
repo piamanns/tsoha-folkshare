@@ -23,7 +23,7 @@
       <input type="submit" value="Lisää kategoria">  
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
-
+  <hr>  
   <h2>Valitse näytettävät kategoriat:</h2>
   <form action="/set_category_visibility" method="POST">
     {% for category in categories %}
@@ -40,7 +40,7 @@
       <input type="submit" value="Tallenna valinnat">  
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
-
+  <hr>
   <h2>Poista kategoria kokonaan</h2>
   <p>Poista kategoria palvelusta. Kategoriaan liitetyt kappaleet säilyvät palvelussa!</p>
   <form action="/delete_category" method="POST">

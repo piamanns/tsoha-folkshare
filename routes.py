@@ -3,12 +3,13 @@ from app import app
 import users
 import tunes
 import comments
+import categories as cats
 import sys
 
 @app.route("/")
 def index():
     latest_tunes = tunes.get_latest_tunes()
-    categories = tunes.get_all_categories()
+    categories = cats.get_all_categories()
     return render_template("index.html", tunes=latest_tunes, categories=categories)
 
 @app.route("/tune/<int:id>")
@@ -75,7 +76,7 @@ def add_tune():
         return render_template("error.html", message="Kirjaudu sisään, jos haluat lisätä kappaleen.")
 
     if request.method == "GET":
-        all_categories = tunes.get_all_categories()
+        all_categories = cats.get_all_categories()
         return render_template("add_tune.html", categories=all_categories)
 
     if request.method == "POST":
@@ -97,10 +98,10 @@ def add_tune():
         
 @app.route("/category/<int:id>")
 def category(id):
-    category = tunes.get_category(id)
+    category = cats.get_category_info(id)
     if not category:
         return render_template("error.html", message="Kategoriaa ei löytynyt.")
-    category_tunes = tunes.get_category_tunes(id)
+    category_tunes = cats.get_category_tunes(id)
     return render_template("category.html", name=category.name, tunes=category_tunes)
 
 @app.route("/add_category", methods = ["GET", "POST"])
@@ -112,7 +113,7 @@ def add_category():
 
     if request.method == "GET":
         # Get all categories, including hidden ones
-        categories = tunes.get_all_categories(True)
+        categories = cats.get_all_categories(True)
         return render_template("category_admin.html", categories=categories)
     
     if request.method == "POST":
@@ -122,7 +123,7 @@ def add_category():
         name = request.form["name"]
         if len(name) < 1 or len(name) > 50:
             return render_template("error.html", message="Kategorian nimen tulee olla 1-50 merkkiä pitkä.")
-        new_category = tunes.add_category(name, user_id)
+        new_category = cats.add_category(name, user_id)
         if not new_category:
             return render_template("error.html", message="Kategorian lisääminen epäonnistui")
         else:
@@ -136,7 +137,7 @@ def set_category_visibility():
           return render_template("error.html", message="Vain ylläpitäjä voi muokata kategorioita.")  
    
       categories = request.form.getlist("category")
-      tunes.set_category_visibility(categories)
+      cats.set_category_visibility(categories)
       flash("Muutokset kategorioiden näkyvyyteen tallennettiin.")
       return redirect("/add_category")
 
@@ -146,7 +147,7 @@ def delete_category():
       if users.user_role() < 2:
           return render_template("error.html", message="Vain ylläpitäjä voi poistaa kategorioita.")
       category_id = request.form["category_id"]      
-      deleted_name = tunes.delete_category(category_id)
+      deleted_name = cats.delete_category(category_id)
       flash(f"Kategoria {deleted_name} poistettiin palvelusta.")
       return redirect("/add_category")
 
@@ -181,7 +182,7 @@ def update_tune(id):
         tune_category_ids = []
         for tune_category in tune_categories:
             tune_category_ids.append(tune_category[0])
-        categories = tunes.get_all_categories()
+        categories = cats.get_all_categories()
         return render_template("update_tune.html", tune=tune, notation=with_linebreaks, tune_category_ids=tune_category_ids, categories=categories)          
  
     if request.method == "POST":
