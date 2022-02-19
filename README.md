@@ -17,15 +17,16 @@ Sovellusta voi testata osoitteessa <a href="https://tsoha-folkshare.herokuapp.co
 - Nuotit voi listata kategorian mukaan.
 - Ylläpitäjä voi luoda uusia kategorioita.
 - Ylläpitäjä voi valita mitkä kategoriat palvelussa näytetään.
+- Ylläpitäjä voi myös poistaa kategorian kokonaan. Kategoriaan liitetyt nuotit säilyvät kuitenkin palvelussa.
 - Kirjautunut käyttäjä voi ladata sovellukseen uuden kappaleen antamalla kappaleen nimen ja ABC-notaation, sekä valitsemalla yhden tai useamman kategorian, johon nuotti lisätään.
 - Kirjautunut käyttäjä voi muokata lisäämiään nuotteja tai poistaa lisäämänsä nuotin kokonaan.
 - Ylläpitäjä voi muokata kaikkia nuotteja ja poistaa minkä nuotin tahansa.
 - Kirjautunut käyttäjä voi kommentoida nuottia.
+- Ylläpitäjä voi poistaa kommentteja.
 - Kirjautumattomat käyttäjät voivat selata palvelusta löytyviä nuotteja. 
 
 ### Työn alla:
 
-- Käyttäjä voi poistaa kirjoittamansa kommentin. Ylläpitäjä voi poistaa minkä kommentin tahansa.
 - Hakutoiminnallisuus
 - Looginen navigaatio ja palvelun yleinen rakenne 
 - Sovelluksen graafinen ulkoasu
