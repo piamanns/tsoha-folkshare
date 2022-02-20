@@ -4,7 +4,8 @@
 <script>
   var script = document.createElement('script');
   script.onload = function(event) {
-    ABCJS.renderAbc("notation", "{{ tune.notation }}");  
+    let sheetmusic = "{{ notation | safe }}"
+    ABCJS.renderAbc("notation", sheetmusic);  
   }
   script.defer = true;
   script.src = "{{url_for('static', filename='abcjs-basic-min.js')}}";
@@ -62,7 +63,7 @@
 {% if session.user_id%}
   <form action="/add_comment" method="POST">  
     <label for="comment"><strong>Lisää kommentti:</strong></label><br>
-    <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000">{{ notation }}</textarea>
+    <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000"></textarea>
     <input type="hidden" name="tune_id" value="{{ tune.id }}">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <br>

@@ -10,7 +10,7 @@
     <input type="text" id="name" name="name" minlength="1" maxlength="50" value="{{ tune.name }}">
   <p>
     <label for="notation">Kappale ABC-notaationa:</label><br>
-    <textarea id ="notation" name="notation" rows="10" cols="60" maxlength="10000">{{ notation }}</textarea><br>
+    <textarea id ="notation" name="notation" rows="10" cols="60" maxlength="10000">{{ tune.notation }}</textarea><br>
   <p>
     <legend><strong>Kappale on liitetty kategorioihin:</strong></legend></br>
     {% for category in categories %}

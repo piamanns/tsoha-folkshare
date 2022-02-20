@@ -1,10 +1,9 @@
-from flask import flash, redirect, render_template, request
+from flask import Flask, flash, redirect, render_template, request, Markup
 from app import app
 import users
 import tunes
 import comments
 import categories as cats
-import sys
 
 @app.route("/")
 def index():
@@ -17,10 +16,20 @@ def tune(id):
     tune = tunes.get_tune(id)
     tune_categories = tunes.get_tune_categories(id)
     tune_comments = comments.get_tune_comments(id)
-    #print(tune, file=sys.stderr)
+    notation = tune.notation
+    notation = Markup.escape(notation)
+    # replace some special characters used in abc-notation with escaped versions for javascript
+    # apostrophe:
+    notation = str(notation).replace("&#39;", "\\'") 
+    # double quote:
+    notation = notation.replace("&#34;", '\\"')
+    # right-pointing angle bracket
+    notation = notation.replace("&gt;", "\\>")
+     # replace linebreaks with javascript linebreaks
+    notation = notation.replace("\r\n", "\\n")
     if not tune:
         return render_template("error.html", message="Kappaletta ei löytynyt.")
-    return render_template("tune.html", tune=tune, categories=tune_categories, comments=tune_comments)
+    return render_template("tune.html", tune=tune, notation=notation, categories=tune_categories, comments=tune_comments)
 
 @app.route("/tune")
 def all_tunes():
@@ -89,9 +98,7 @@ def add_tune():
         if len(notation) < 1 or len(notation) > 1500:
             return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
         categories = request.form.getlist("category")
-        # Escape row changes in notation data
-        sanitized = notation.replace("\r\n","\\n")
-        tune_id = tunes.add_tune(name, sanitized, categories, user_id)
+        tune_id = tunes.add_tune(name, notation, categories, user_id)
         if not tune_id:
             return render_template("error.html", message="Kappaleen lisääminen epäonnistui.")
         return redirect("/tune/"+str(tune_id))
@@ -176,14 +183,12 @@ def update_tune(id):
 
     if request.method == "GET":
         tune = tunes.get_tune(id)
-        notation = tune.notation
-        with_linebreaks = notation.replace("\\n", "\r\n")
         tune_categories = tunes.get_tune_categories(id, False)
         tune_category_ids = []
         for tune_category in tune_categories:
             tune_category_ids.append(tune_category[0])
         categories = cats.get_all_categories()
-        return render_template("update_tune.html", tune=tune, notation=with_linebreaks, tune_category_ids=tune_category_ids, categories=categories)          
+        return render_template("update_tune.html", tune=tune, tune_category_ids=tune_category_ids, categories=categories)          
  
     if request.method == "POST":
         users.check_csrf(request.form["csrf_token"])
@@ -195,10 +200,7 @@ def update_tune(id):
         if len(notation) < 1 or len(notation) > 1500:
             return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
         categories = request.form.getlist("category")
-
-        # Escape row changes in notation data
-        sanitized = notation.replace("\r\n","\\n")
-        tunes.update_tune(id, name, sanitized, categories)
+        tunes.update_tune(id, name, notation, categories)
         flash("Muutokset tallennettiin.")
         return redirect("/tune/"+str(id))
 
