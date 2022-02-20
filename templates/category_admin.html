@@ -41,12 +41,12 @@
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
   <hr>
-  <h2>Poista kategoria kokonaan</h2>
-  <p>Poista kategoria palvelusta. Kategoriaan liitetyt kappaleet säilyvät palvelussa!</p>
+  <h2>Poista kategoria</h2>
+  <p>Poista kategoria kokonaan palvelusta. Kategoriaan liitetyt kappaleet säilyvät palvelussa.</p>
   <form action="/delete_category" method="POST">
     <ul style="list-style-type: none; padding-inline-start: 0;">
     {% for category in categories %}
-      <li><input type="radio" name="category_id" value="{{ category.id }}"> {{ category.name }}</li>
+      <li><input type="radio" name="category_id" value="{{ category.id }}"> {{ category.name }} ({{ category.count }})</li>
     {% endfor %}
     </ul>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

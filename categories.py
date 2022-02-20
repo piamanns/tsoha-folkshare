@@ -34,8 +34,18 @@ def get_all_categories(include_hidden=False):
     result = db.session.execute(sql)
     return result.fetchall()
 
+def get_all_categories_count(include_hidden=False):
+    if include_hidden:
+        sql = "SELECT c.id, c.name, c.visible, COUNT(*) FROM categories c, categories_tunes ct " \
+              "WHERE c.id=ct.category_id GROUP BY c.id"
+    else:
+        sql = "SELECT c.id, c.name, COUNT(*) FROM categories c, categories_tunes ct " \
+              "WHERE c.id=ct.category_id AND c.visible=TRUE GROUP BY c.id"            
+    return db.session.execute(sql).fetchall()         
+
 def get_category_info(category_id):
-    sql = "SELECT name FROM categories WHERE id=:category_id AND visible=TRUE"
+    sql = "SELECT c.name, COUNT(*) FROM categories c, categories_tunes ct WHERE c.id=:category_id " \
+          "AND ct.category_id=c.id AND c.visible=TRUE GROUP BY c.name"
     result = db.session.execute(sql, {"category_id": category_id})
     return result.fetchone()
 

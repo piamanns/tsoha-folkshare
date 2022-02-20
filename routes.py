@@ -8,7 +8,7 @@ import categories as cats
 @app.route("/")
 def index():
     latest_tunes = tunes.get_all_tunes(10)
-    categories = cats.get_all_categories()
+    categories = cats.get_all_categories_count()
     return render_template("index.html", tunes=latest_tunes, categories=categories)
 
 @app.route("/tune/<int:id>")
@@ -109,7 +109,7 @@ def category(id):
     if not category:
         return render_template("error.html", message="Kategoriaa ei löytynyt.")
     category_tunes = cats.get_category_tunes(id)
-    return render_template("category.html", name=category.name, tunes=category_tunes)
+    return render_template("category.html", category=category, tunes=category_tunes)
 
 @app.route("/add_category", methods = ["GET", "POST"])
 def add_category():
@@ -120,7 +120,7 @@ def add_category():
 
     if request.method == "GET":
         # Get all categories, including hidden ones
-        categories = cats.get_all_categories(True)
+        categories = cats.get_all_categories_count(True)
         return render_template("category_admin.html", categories=categories)
     
     if request.method == "POST":
