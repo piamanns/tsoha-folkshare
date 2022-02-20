@@ -55,7 +55,7 @@ def get_creator(id):
 def get_tune_categories(tune_id, include_name=True):
     if include_name:
         sql = "SELECT c.id, c.name FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
-              "AND c.id=ct.category_id AND c.visible=TRUE"
+              "AND c.id=ct.category_id AND c.visible=TRUE ORDER BY c.name"
     else:
         sql="SELECT c.id FROM categories c, categories_tunes ct WHERE ct.tune_id=:tune_id " \
             "AND c.id=ct.category_id AND c.visible=TRUE"

@@ -187,7 +187,7 @@ def update_tune(id):
         tune_category_ids = []
         for tune_category in tune_categories:
             tune_category_ids.append(tune_category[0])
-        categories = cats.get_all_categories()
+        categories = cats.get_all_categories(True)
         return render_template("update_tune.html", tune=tune, tune_category_ids=tune_category_ids, categories=categories)          
  
     if request.method == "POST":
