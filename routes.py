@@ -25,7 +25,7 @@ def tune(id):
     notation = notation.replace("&#34;", '\\"')
     # right-pointing angle bracket
     notation = notation.replace("&gt;", "\\>")
-     # replace linebreaks with javascript linebreaks
+     # also make linebreaks suitable for notation renderer
     notation = notation.replace("\r\n", "\\n")
     if not tune:
         return render_template("error.html", message="Kappaletta ei löytynyt.")
@@ -95,8 +95,8 @@ def add_tune():
         if len(name) < 1 or len(name) > 50:
             return render_template("error.html", message="Kappaleen nimen tulee olla 1-50 merkkiä pitkä.")
         notation = request.form["notation"]
-        if len(notation) < 1 or len(notation) > 1500:
-            return render_template("error.html", message="ABC-notaation tulee olla 1-1500 merkkiä pitkä.")  
+        if len(notation) < 1 or len(notation) > 3000:
+            return render_template("error.html", message="ABC-notaation tulee olla 1-3000 merkkiä pitkä.")  
         categories = request.form.getlist("category")
         tune_id = tunes.add_tune(name, notation, categories, user_id)
         if not tune_id:
