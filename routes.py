@@ -111,6 +111,11 @@ def category(id):
     category_tunes = cats.get_category_tunes(id)
     return render_template("category.html", category=category, tunes=category_tunes)
 
+@app.route("/category")
+def all_categories():
+    categories = cats.get_all_categories_count()
+    return render_template("all_categories.html", categories=categories)
+
 @app.route("/add_category", methods = ["GET", "POST"])
 def add_category():
     user_role = users.user_role()

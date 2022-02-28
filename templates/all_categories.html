@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}kategoriat{% endblock %}
+{% block content %}
+
+<h2>Kaikki kategoriat</h2>
+
+<ul>
+{% for category in categories %}
+  <li><a href="/category/{{ category.id}}">{{ category.name }}</a> ({{ category.count }})</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
