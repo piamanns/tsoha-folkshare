@@ -14,6 +14,8 @@ def index():
 @app.route("/tune/<int:id>")
 def tune(id):
     tune = tunes.get_tune(id)
+    if not tune:
+        return render_template("error.html", message="Kappaletta ei löytynyt.")
     tune_categories = tunes.get_tune_categories(id)
     tune_comments = comments.get_tune_comments(id)
     notation = tune.notation
@@ -27,8 +29,6 @@ def tune(id):
     notation = notation.replace("&gt;", "\\>")
      # also make linebreaks suitable for notation renderer
     notation = notation.replace("\r\n", "\\n")
-    if not tune:
-        return render_template("error.html", message="Kappaletta ei löytynyt.")
     return render_template("tune.html", tune=tune, notation=notation, categories=tune_categories, comments=tune_comments)
 
 @app.route("/tune")
