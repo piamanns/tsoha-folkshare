@@ -4,8 +4,9 @@
 
 <h2>Haku</h2>
 
-<p>Haku sanalla "<strong>{{ query }}</strong>" tuotti tuloksen: </p>
+{% if query %}
 
+<p>Haku sanalla "<strong>{{ query }}</strong>" tuotti tuloksen: </p>
   {% if result %}
     <ul>
       {% for tune in result %}
@@ -16,7 +17,8 @@
     <p>(ei tuloksia)</p>  
   {% endif %}
 
-<h3>Tee uusi haku:</h3>
+{% endif %}
+
 <form action="/search" method="GET">
   <label for="query">Hae nuottia kappaleen nimellä:</label><br>
     <input type="text" id="query" name="query" minlength="1" maxlength="50">

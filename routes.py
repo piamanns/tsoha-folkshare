@@ -238,7 +238,9 @@ def delete_comment(id):
 
 @app.route("/search")
 def search():
-    query = request.args["query"]
-    result = tunes.search_tunes(query)
-    return render_template("search_result.html", result=result, query=query)
-    
+    query = None
+    result = None
+    if request.args:
+      query = request.args["query"]
+      result = tunes.search_tunes(query)
+    return render_template("search.html", result=result, query=query)
