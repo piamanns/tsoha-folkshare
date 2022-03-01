@@ -1,13 +1,33 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="/static/main.css">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
 <title>FolkShare - {% block title %}{% endblock %}</title>
-<h1><a href="/">FolkShare</a></h1>
-<p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla!
-{% if session.user_id %}
-  <p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong> | <a href="/logout">Kirjaudu ulos</a>
-{% else %}
-  <p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
-{% endif %}
-<hr>
+<div class="header">
+  <h1><a href="/">Folkshare</a></h1>
+  <p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla.
+  {% if session.user_id %}
+    <p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong>
+      {% if session.user_role == 2 %}
+        | <a href="/add_category">Ylläpitäjän työkalut</a>
+      {% endif %}
+      | <a href="/logout">Kirjaudu ulos</a>      
+  {% else %}
+    <p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
+  {% endif %}
+</div>
+
+<nav>
+  <ul>
+    <li><a href="/">Etusivu</a></li>
+    {% if session.user_id %}
+      <li><a href="/add_tune">Lisää uusi</a></li>
+    {% endif %}
+    <li><a href="/tune">Kappaleet</a></li>
+    <li><a href="/category">Kategoriat</a></li>
+    <li><a href="/search">Haku</a></li>
+  </ul>
+</nav>
 
 {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -17,10 +37,21 @@
     {% endif %}
   {% endwith %}
 
-{% block content %}
-{% endblock %}
+<div class="content">  
+  {% block content %}
+  {% endblock %}
+</div>
 
-{% block footer%}
-  <hr>
-  <p><a href="/">Takaisin etusivulle</a></p> 
-{% endblock %}
+<div class="footer">
+  {% block footer%}
+    <ul>
+      <li><a href="/">Etusivu</a></li> 
+      {% if session.user_id %}
+        <li><a href="/add_tune">Lisää uusi</a></li>
+      {% endif %}
+      <li><a href="/">Kappaleet</a></li> 
+      <li><a href="/">Kategoriat</a></li> 
+      <li><a href="/">Haku</a></li> 
+    </ul>
+  {% endblock %}
+</div>

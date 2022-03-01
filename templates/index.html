@@ -1,43 +1,32 @@
 {% extends "layout.html" %}
 {% block title %}etusivu{% endblock %}
+
 {% block content %}
+  <div style="float: right;">
+    <h2>Haku</h2>
+    <form action="/search" method="GET">
+      <label for="query">Hae nuottia kappaleen nimellä:</label><br>
+        <input type="text" id="query" name="query" minlength="1" maxlength="50" size="30">
+        <input type="submit" value="Hae">
+    </form>
+  </div>
 
-{% if session.user_id %}
-  <p>
-    <a href="/add_tune">&gt;&gt; Lisää uusi kappale</a>
-  </p>
-{% endif %}
-
-<h2>Haku</h2>
-<form action="/search" method="GET">
-  <label for="query">Hae nuottia kappaleen nimellä:</label><br>
-    <input type="text" id="query" name="query" minlength="1" maxlength="50">
-    <input type="submit" value="Hae">
-</form>
-
-<h2>Viimeksi lisätyt nuotit</h2>
-<ul>
-  {% for tune in tunes %}
-  <li><a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})</li>
-  {% endfor %}
-</ul>
-<p><a href="/tune">&gt;&gt; Näytä kaikki</a></p>
-
-<h2>Selaa kappaleita kategorioittain</h2>
-<ul>
-  {% for category in categories %}
-    <li><a href="/category/{{ category.id }}">{{ category.name }}</a> ({{ category.count }})</li>
-  {% endfor %}
-</ul>
-
-{% if session.user_role == 2 %}
-  <h3>Ylläpitäjälle:</h3>
-  <p>
-    <a href="/add_category">&gt;&gt; Hallinnoi kategorioita</a>
-  </p>
-{% endif %}
-
-{% endblock %}
-{% block footer %}
-  <hr>
+  <div>
+    <h2>Viimeksi lisätyt nuotit</h2>
+    <ul>
+      {% for tune in tunes %}
+      <li><a href="/tune/{{ tune.id }}">{{ tune.name }}</a> - lisääjä <strong>{{ tune.username }}</strong> ({{ tune.created.strftime("%d.%m.%Y") }})</li>
+      {% endfor %}
+    </ul>
+    <p><a href="/tune">Näytä kaikki</a></p>
+  </div>
+  
+  <div>
+    <h2>Selaa kategorioittain</h2>
+    <ul>
+      {% for category in categories %}
+        <li><a href="/category/{{ category.id }}">{{ category.name }}</a> ({{ category.count }})</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
