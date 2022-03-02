@@ -101,6 +101,17 @@ nav a:hover {
   margin-bottom: 1.5em;
 }
 
+/* || ADMIN PAGE*/
+
+.hidden:link, .hidden:visited {
+  color: gray;
+  text-decoration: none
+}
+
+.hidden:hover {
+  text-decoration: underline;
+}
+
 /* || FOOTER */
 
 .footer {

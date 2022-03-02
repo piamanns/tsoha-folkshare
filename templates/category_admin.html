@@ -10,7 +10,7 @@
       {% if category.visible %}
         <a href="/category/{{ category.id }}">{{ category.name }}</a>
       {% else %}
-        <span style="color:gray">{{ category.name }}</span>
+        <a href="/category/{{ category.id }}" class="hidden">{{ category.name }}</a>
       {% endif %}
   {% endfor %}
   <p>(Huomaathan, että palvelussa ei voi olla useita samannimisiä kategorioita.)</p>

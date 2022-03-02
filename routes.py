@@ -105,7 +105,12 @@ def add_tune():
         
 @app.route("/category/<int:id>")
 def category(id):
-    category = cats.get_category_info(id)
+    user_role = users.user_role()
+    # Show hidden categories for admin
+    if user_role == 2:
+        category = cats.get_category_info(id, True)
+    else:    
+        category = cats.get_category_info(id)
     if not category:
         return render_template("error.html", message="Kategoriaa ei löytynyt.")
     category_tunes = cats.get_category_tunes(id)

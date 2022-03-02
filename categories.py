@@ -43,9 +43,13 @@ def get_all_categories_count(include_hidden=False):
               "ON c.id=ct.category_id WHERE c.visible=TRUE GROUP BY c.id ORDER BY name"            
     return db.session.execute(sql).fetchall()         
 
-def get_category_info(category_id):
-    sql = "SELECT c.name, COUNT(ct.tune_id) FROM categories c LEFT JOIN categories_tunes ct ON c.id=ct.category_id "\
-          "WHERE c.id=:category_id AND c.visible=TRUE GROUP BY c.name"
+def get_category_info(category_id, include_hidden=False):
+    if include_hidden:
+        sql = "SELECT c.name, c.visible, COUNT(ct.tune_id) FROM categories c LEFT JOIN categories_tunes ct ON c.id=ct.category_id "\
+            "WHERE c.id=:category_id GROUP BY c.name, c.visible"
+    else:  
+        sql = "SELECT c.name, COUNT(ct.tune_id) FROM categories c LEFT JOIN categories_tunes ct ON c.id=ct.category_id "\
+            "WHERE c.id=:category_id AND c.visible=TRUE GROUP BY c.name"
     result = db.session.execute(sql, {"category_id": category_id})
     return result.fetchone()
 
@@ -53,6 +57,6 @@ def get_category_tunes(category_id):
     sql = "SELECT t.id, t.name, t.created, u.username " \
           "FROM categories_tunes ct JOIN categories c ON ct.category_id=c.id " \
           "JOIN tunes t ON ct.tune_id=t.id JOIN users u ON t.creator_id=u.id " \
-          "WHERE ct.category_id=:category_id AND c.visible=TRUE AND t.visible=TRUE ORDER BY t.name ASC"	
+          "WHERE ct.category_id=:category_id AND t.visible=TRUE ORDER BY t.name ASC"	
     result = db.session.execute(sql, {"category_id": category_id})
     return result.fetchall()

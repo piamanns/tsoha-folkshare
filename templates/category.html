@@ -3,6 +3,11 @@
 {% block content %}
 
 <h2>Kappaleet kategoriassa {{ category.name }}</h2>
+{% if category.visible is defined %}
+    {% if category.visible == False %}
+  <p><em>Kategoria on piilotettu käyttäjiltä.</em></p>
+    {% endif %}
+{% endif %}
 <p>Nuotteja kategoriassa: {{ category.count}} kpl.</p>
 {% if tunes %}
   <ul>
