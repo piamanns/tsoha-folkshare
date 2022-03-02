@@ -110,6 +110,32 @@ nav a:hover {
   margin-bottom: 1.5em;
 }
 
+/* || TUNE PAGE */
+
+.tune-category-list ul {
+  display: block;
+  list-style: none;
+  margin-top: 0;
+  padding: 0;
+}
+
+.tune-category-list li {
+  display: inline;
+  margin: 0;
+  padding-left: 0.2em; 
+  padding-right: 0.3em;
+  line-height: 1.5em;
+  border-right: 0.1em solid lightgrey;
+}
+
+.tune-category-list li:first-child {
+  padding-left: 0; 
+}
+
+.tune-category-list li:last-child {
+  border-right: none;
+}
+
 /* || FOOTER */
 
 .footer {
