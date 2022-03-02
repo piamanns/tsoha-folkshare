@@ -38,6 +38,15 @@ hr {
   margin-bottom: 1.5em;
 }
 
+.hidden:link, .hidden:visited {
+  color: gray;
+  text-decoration: none
+}
+
+.hidden:hover {
+  text-decoration: underline;
+}
+
 /* || HEADER */
 
 .header {
@@ -99,17 +108,6 @@ nav a:hover {
   border-top: 0.1em solid lightgrey;
   padding: 0.5em 0.6em;
   margin-bottom: 1.5em;
-}
-
-/* || ADMIN PAGE*/
-
-.hidden:link, .hidden:visited {
-  color: gray;
-  text-decoration: none
-}
-
-.hidden:hover {
-  text-decoration: underline;
 }
 
 /* || FOOTER */

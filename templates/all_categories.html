@@ -4,10 +4,23 @@
 
 <h2>Kaikki kategoriat</h2>
 
-<ul>
-{% for category in categories %}
-  <li><a href="/category/{{ category.id}}">{{ category.name }}</a> ({{ category.count }})</li>
-{% endfor %}
-</ul>
+{% if admin_view %}
+  <ul>
+    {% for category in categories %}
+      {% if category.visible %}
+        <li><a href="/category/{{ category.id}}">{{ category.name }}</a> ({{ category.count }})</li>
+      {% else %}
+        <li><a href="/category/{{ category.id}}" class="hidden">{{ category.name }}</a> (piilotettu, {{ category.count }})</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+{% else %}
+  <ul>
+  {% for category in categories %}
+    <li><a href="/category/{{ category.id}}">{{ category.name }}</a> ({{ category.count }})</li>
+  {% endfor %}
+  </ul>
+{% endif %}
 
 {% endblock %}

@@ -118,8 +118,15 @@ def category(id):
 
 @app.route("/category")
 def all_categories():
-    categories = cats.get_all_categories_count()
-    return render_template("all_categories.html", categories=categories)
+    user_role = users.user_role()
+    # Include hidden categories for admin
+    if user_role == 2:
+        categories = cats.get_all_categories_count(True)
+        admin_view = True
+    else:     
+        categories = cats.get_all_categories_count()
+        admin_view = False
+    return render_template("all_categories.html", categories=categories, admin_view=admin_view)
 
 @app.route("/add_category", methods = ["GET", "POST"])
 def add_category():
