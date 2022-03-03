@@ -5,7 +5,7 @@
   var script = document.createElement('script');
   script.onload = function(event) {
     let sheetmusic = "{{ notation | safe }}"
-    ABCJS.renderAbc("notation", sheetmusic);  
+    ABCJS.renderAbc("notation", sheetmusic, { responsive: "resize" });  
   }
   script.defer = true;
   script.src = "{{url_for('static', filename='abcjs-basic-min.js')}}";
@@ -17,8 +17,10 @@
 <p>Lisääjä <strong>{{ tune.username }}</strong> 
   ({{ tune.created.strftime("%d.%m.%Y") }}{% if tune.updated %}, muokattu {{ tune.updated.strftime("%d.%m.%Y") }}{% endif %})</p>
 
-<div id="notation">
-  <p>Nuotti latautuu</p>
+<div id="notation-container">
+  <div id="notation">
+    <p>Nuotti latautuu</p>
+  </div>
 </div>
 
 {% if categories %}

@@ -230,12 +230,13 @@ nav li:hover a {
 
 /* || TUNE PAGE */
 
-#notation {
+#notation-container {
+  width: 90%;
   margin: 1em 0;
 }
 
 .tune-admin {
-  max-width: 48em;
+  max-width: 90%;
   margin: 1em 0 2em 0;
   display: flex;
 }
