@@ -254,5 +254,7 @@ def search():
     result = None
     if request.args:
       query = request.args["query"]
+      if len(query) < 1 or len(query) > 50:
+          return render_template("error.html", message="Hakusanan tulee olla 1-50 merkkiä pitkä.")
       result = tunes.search_tunes(query)
     return render_template("search.html", result=result, query=query)
