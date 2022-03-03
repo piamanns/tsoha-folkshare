@@ -8,9 +8,6 @@
   <div class="subheading">Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla.</div>
   {% if session.user_id %}
     <p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong>
-      {% if session.user_role == 2 %}
-        <button type="button" class="btn-link-blue"><a href="/add_category">Ylläpitäjän työkalut</a></button>
-      {% endif %}
       <button type="button" class="btn-link-purple"><a href="/logout">Kirjaudu ulos</a></button>      
   {% else %}
     <p>
@@ -28,6 +25,9 @@
     <li><a href="/tune">Kappaleet</a></li>
     <li><a href="/category">Kategoriat</a></li>
     <li><a href="/search">Haku</a></li>
+    {% if session.user_role == 2 %}
+      <li class="admin"><a href="/add_category">Ylläpitäjälle</a></li>
+    {% endif %}
   </ul>
 </nav>
 
