@@ -24,7 +24,7 @@ li {
 }
 
 a:link, a:visited {
-  color: #490B3D;
+  color: #470B3D;
 }
 
 a:hover {
@@ -36,6 +36,10 @@ hr {
   border-bottom: 0.1em solid lightgrey;
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+}
+
+.padding-left {
+  padding-left: 1.5em;
 }
 
 /* Link to hidden resources */
@@ -52,7 +56,7 @@ hr {
 
 button {
   background-color: #470b3b;
-  font-size: 1em;
+  font-size: 0.9em;
   color: white;
   margin: 0.2em 0.1em;
   padding: 0.7em 1.2em;
@@ -61,22 +65,14 @@ button {
 }
 
 button:hover {
-  background-color: #bd1e51;
   cursor: pointer;
+  background-color: #f1bd20;
+  color: #470b3b; 
 }
 
 .btn-delete {
-  background-color: white;
-  color: #333;
-  font-weight: 600;
-  padding: 0.6em 1em;
-  border: 0.2em solid #BD1E51;
-  border-radius: 1.4em;
-}
-
-.btn-delete:hover {
   background-color: #BD1E51;
-  color: white;
+  color: white
 }
 
 .btn-modify {
@@ -84,11 +80,12 @@ button:hover {
 }
 
 .btn-modify:hover {
-  background: #f1bd20;
+  background-color: #f1bd20;
+  color: #470b3b; 
 }
 
 .btn-search {
-  background-color: rgb(239, 239, 239);
+  background-color: #efefef;
   color: #333;
   border: 1px solid #333;
   padding: 0.2em 0.5em;
@@ -109,6 +106,40 @@ button:hover {
   color: white;
 }
 
+.btn-link-purple {
+  background-color: #470b3b;
+}
+
+.btn-link-purple a {
+  color: white;
+  text-decoration: none;
+}
+
+.btn-link-purple:hover {
+  background-color: #efefef;
+}
+
+.btn-link-purple:hover a{
+  color: #470b3b;
+}
+
+.btn-link-blue {
+  background-color: hsl(191, 51%, 35%);
+}
+
+.btn-link-blue a {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-link-blue:hover {
+  background-color: #efefef;
+}
+
+.btn-link-blue:hover a {
+  color: #470b3b;
+}
+
 /* || HEADER */
 
 .header {
@@ -122,7 +153,7 @@ button:hover {
   font-size: 3.5em;
   font-weight: bold;
   margin-top: 0.4em;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.1em;
 }
 
 .header h1 a {
@@ -132,6 +163,18 @@ button:hover {
 
 .header h1 a:hover {
   text-decoration: underline
+}
+
+.subheading {
+  color: #470b3b;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
+.header p {
+  color: #470b3b;
+  margin-bottom: 0.5em;
 }
 
 /* || NAVIGATION */
@@ -151,17 +194,16 @@ nav li {
   border-bottom-right-radius: 0.2em;
 }
 
+nav li a:link {
+  text-decoration: none;
+}
+
 nav li:hover {
   background-color: #f1bd20;
 }
 
-nav a {
-  text-decoration: none;
-}
-
-nav a:hover {
-  color: #490B3D;
-  text-decoration: underline;
+nav li:hover a {
+  color: #470b3b;
 }
 
 /* || FLASHED MESSAGES */

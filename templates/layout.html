@@ -5,15 +5,17 @@
 <title>FolkShare - {% block title %}{% endblock %}</title>
 <div class="header">
   <h1><a href="/">Folkshare</a></h1>
-  <p>Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla.
+  <div class="subheading">Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla.</div>
   {% if session.user_id %}
     <p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong>
       {% if session.user_role == 2 %}
-        | <a href="/add_category">Ylläpitäjän työkalut</a>
+        <button type="button" class="btn-link-blue"><a href="/add_category">Ylläpitäjän työkalut</a></button>
       {% endif %}
-      | <a href="/logout">Kirjaudu ulos</a>      
+      <button type="button" class="btn-link-purple"><a href="/logout">Kirjaudu ulos</a></button>      
   {% else %}
-    <p><a href="/login">Kirjaudu sisään</a> | <a href="/register">Luo käyttäjätunnus</a>
+    <p>
+      <button type="button" class="btn-link-purple"><a href="/login">Kirjaudu sisään</a></button> 
+      <button type="button" class="btn-link-blue"><a href="/register">Luo käyttäjätunnus</a></button>
   {% endif %}
 </div>
 
