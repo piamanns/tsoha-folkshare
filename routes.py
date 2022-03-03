@@ -1,4 +1,5 @@
 from flask import Flask, flash, redirect, render_template, request, Markup
+from jinja2 import Undefined
 from app import app
 import users
 import tunes
@@ -170,7 +171,10 @@ def delete_category():
       users.check_csrf(request.form["csrf_token"])
       if users.user_role() < 2:
           return render_template("error.html", message="Vain ylläpitäjä voi poistaa kategorioita.")
-      category_id = request.form["category_id"]      
+      if request.form.get("category_id") == None:
+          return render_template("error.html", message="Kategoriaa ei ollut valittu.")  
+      category_id = request.form["category_id"]
+      print(category_id)
       deleted_name = cats.delete_category(category_id)
       flash(f"Kategoria {deleted_name} poistettiin palvelusta.")
       return redirect("/add_category")
