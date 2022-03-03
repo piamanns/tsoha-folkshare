@@ -8,11 +8,11 @@
   <div class="subheading">Selaa, tulosta ja jaa tekijänoikeusvapaita kansanmusiikkinuotteja ABC-notaation avulla.</div>
   {% if session.user_id %}
     <p>Tervetuloa, käyttäjä <strong>{{ session.user_name }}!</strong>
-      <button type="button" class="btn-link-purple"><a href="/logout">Kirjaudu ulos</a></button>      
+      <a href="/logout"><button type="button" class="btn-link-purple">Kirjaudu ulos</button></a>      
   {% else %}
     <p>
-      <button type="button" class="btn-link-purple"><a href="/login">Kirjaudu sisään</a></button> 
-      <button type="button" class="btn-link-blue"><a href="/register">Luo käyttäjätunnus</a></button>
+      <a href="/login"><button type="button" class="btn-link-purple">Kirjaudu sisään</button></a> 
+      <a href="/register"><button type="button" class="btn-link-blue">Luo käyttäjätunnus</button></a>
   {% endif %}
 </div>
 
