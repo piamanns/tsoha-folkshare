@@ -2,8 +2,6 @@
 {% block title %}haku{% endblock %}
 {% block content %}
 
-<h2>Haku</h2>
-
 {% if query %}
 
 <p>Haku sanalla "<strong>{{ query }}</strong>" tuotti tuloksen: </p>
@@ -19,10 +17,12 @@
 
 {% endif %}
 
-<form action="/search" method="GET">
-  <label for="query">Hae nuottia kappaleen nimellä:</label><br>
+<form action="/search" method="GET" class="search-form">
+  <h2>Haku</h2>
+  <p>
+    <label for="query">Hae nuottia kappaleen nimellä:</label><br>
     <input type="text" id="query" name="query" minlength="1" maxlength="50" size="30">
-    <input type="submit" value="Hae">
+    <button type="submit" class="btn-search">Hae</button>
 </form>
 
 {% endblock %}

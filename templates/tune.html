@@ -14,13 +14,6 @@
 
 <h2>{{ tune.name }}</h2>
 
-{% if session.user_id == tune.creator_id or session.user_role == 2 %}
-  <form action="/delete_tune/{{ tune.id }}" method="post">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    <button>Poista kappale</button>
-  </form>
-{% endif %}
-
 <p>Lisääjä <strong>{{ tune.username }}</strong> 
   ({{ tune.created.strftime("%d.%m.%Y") }}{% if tune.updated %}, muokattu {{ tune.updated.strftime("%d.%m.%Y") }}{% endif %})</p>
 
@@ -40,9 +33,15 @@
 {% endif %}
 
 {% if session.user_id == tune.creator_id or session.user_role == 2 %}
-  <form action="/update_tune/{{ tune.id }}" method="GET" style="margin-top: 1em">
-    <button>Muokkaa kappaletta</button>
-  </form>
+  <div class="tune-admin">
+    <form action="/update_tune/{{ tune.id }}" method="GET">
+      <button class="btn-modify">Muokkaa kappaletta</button>
+    </form>
+    <form action="/delete_tune/{{ tune.id }}" method="post" class="align-right">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <button class="btn-delete">Poista kappale</button>
+    </form>
+  </div>
 {% endif %}
 
 <h3>Kommentit:</h3>
@@ -54,7 +53,7 @@
         {% if session.user_role == 2 %}
           <form action="/delete_comment/{{ comment.id }}" method="POST" style="display: inline">
             <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-            <button>Poista kommentti</button>
+            <button class="btn-delete">Poista kommentti</button>
           </form>
         {% endif %}
       </li>
@@ -66,12 +65,13 @@
 
 {% if session.user_id%}
   <form action="/add_comment" method="POST">  
-    <label for="comment"><strong>Lisää kommentti:</strong></label><br>
-    <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000"></textarea>
-    <input type="hidden" name="tune_id" value="{{ tune.id }}">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    <br>
-    <button>Lähetä kommentti</button>
+    <p>
+      <label for="comment"><strong>Lisää kommentti:</strong></label><br>
+      <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000"></textarea>
+    <p>
+      <input type="hidden" name="tune_id" value="{{ tune.id }}">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <button>Lähetä kommentti</button>
   </form>
 {% endif %}
 

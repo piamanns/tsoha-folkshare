@@ -38,6 +38,7 @@ hr {
   margin-bottom: 1.5em;
 }
 
+/* Link to hidden resources */
 .hidden:link, .hidden:visited {
   color: gray;
   text-decoration: none
@@ -45,6 +46,67 @@ hr {
 
 .hidden:hover {
   text-decoration: underline;
+}
+
+/* || BUTTONS */
+
+button {
+  background-color: #470b3b;
+  font-size: 1em;
+  color: white;
+  margin: 0.2em 0.1em;
+  padding: 0.7em 1.2em;
+  border: none;
+  border-radius: 1.2em;
+}
+
+button:hover {
+  background-color: #bd1e51;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: white;
+  color: #333;
+  font-weight: 600;
+  padding: 0.6em 1em;
+  border: 0.2em solid #BD1E51;
+  border-radius: 1.4em;
+}
+
+.btn-delete:hover {
+  background-color: #BD1E51;
+  color: white;
+}
+
+.btn-modify {
+  background-color: #2c7687;
+}
+
+.btn-modify:hover {
+  background: #f1bd20;
+}
+
+.btn-search {
+  background-color: rgb(239, 239, 239);
+  color: #333;
+  border: 1px solid #333;
+  padding: 0.2em 0.5em;
+  border-radius: 0.4em;
+}
+
+.btn-search:hover {
+  background-color: #e6e6e6;
+}
+
+.btn-cancel {
+  background-color: rgb(239, 239, 239);
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background-color: #666;
+  color: white;
 }
 
 /* || HEADER */
@@ -102,15 +164,43 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* || FLASHED MESSAGES */
+
+.messages ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.messages li {
+  margin: 0.3em 0;
+  padding: 0.3em 0.5em;
+  background-color: #faf1d3; 
+  border-radius: 0.5em
+}
+
 /* || CONTENT */
 
 .content {
-  border-top: 0.1em solid lightgrey;
+  border-top: 1px solid lightgrey;
   padding: 0.5em 0.6em;
   margin-bottom: 1.5em;
 }
 
 /* || TUNE PAGE */
+
+#notation {
+  margin: 1em 0;
+}
+
+.tune-admin {
+  max-width: 48em;
+  margin: 1em 0 2em 0;
+  display: flex;
+}
+
+.align-right{
+  margin-left: auto;
+}
 
 .tune-category-list ul {
   display: block;
@@ -136,10 +226,35 @@ nav a:hover {
   border-right: none;
 }
 
+/* || SEARCH FORM */
+
+.search-form {
+  display: block;
+  background-color: #faf1d3;
+  max-width: 18em;
+  padding: 0.6em 1.5em;
+  border-radius: 1.5em;
+}
+
+.first-page-float {
+  margin: 1em auto;
+}
+
+@media screen and (min-width: 40em) {
+  .first-page-float {
+    float: right;
+    margin: 1em;
+  }
+}  
+
+.search-form h2 {
+  margin-bottom: 0.2em;
+}
+
 /* || FOOTER */
 
 .footer {
-  border-top: 0.1em solid lightgrey;
+  border-top: 1px solid lightgrey;
   text-align: center;
 }
 

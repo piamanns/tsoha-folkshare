@@ -17,8 +17,9 @@
       <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"> 
       <label for="{{ category.name }}"> {{ category.name }}</label>
     {% endfor %}
-  <p><input type="submit" value="Lisää kappale">  
-  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  <p>
+    <button type="submit">Lisää kappale</button>  
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 {% else %}

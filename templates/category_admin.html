@@ -20,7 +20,7 @@
       <label for="category_name">Uuden kategorian nimi:</label><br>
       <input type="text" id="category_name" name="name" minlength="1" maxlength="50">
     <p>
-      <input type="submit" value="Lisää kategoria">  
+      <button>Lisää kategoria</button>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
   <hr>  
@@ -37,7 +37,7 @@
       <label for="{{ category.name }}"> {{ category.name }} </label>
     {% endfor %}
     <p>
-      <input type="submit" value="Tallenna valinnat">  
+      <button class="btn-modify">Tallenna valinnat</button>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
   <hr>
@@ -50,7 +50,7 @@
     {% endfor %}
     </ul>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    <input type="submit" value="Poista kategoria">  
+    <button class="btn-delete">Poista kategoria</button>  
   </form>
 
 {% else %}

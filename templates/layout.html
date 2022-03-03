@@ -29,15 +29,19 @@
   </ul>
 </nav>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
+<div class="content">  
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}  
+    <div class="messages">  
+      <ul>
       {% for message in messages %}
-        <div style="border:1px solid green; border-radius: 3px; padding: 5px;"><strong>{{ message }}</strong></div>
+        <li>{{ message }}</strong></li>
       {% endfor %}
+      </ul>
+    </div>  
     {% endif %}
   {% endwith %}
 
-<div class="content">  
   {% block content %}
   {% endblock %}
 </div>

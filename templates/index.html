@@ -2,12 +2,13 @@
 {% block title %}etusivu{% endblock %}
 
 {% block content %}
-  <div style="float: right;">
+  <div class="search-form first-page-float">
     <h2>Haku</h2>
     <form action="/search" method="GET">
-      <label for="query">Hae nuottia kappaleen nimellä:</label><br>
+      <p>
+        <label for="query">Hae nuottia kappaleen nimellä:</label><br>
         <input type="text" id="query" name="query" minlength="1" maxlength="50" size="30">
-        <input type="submit" value="Hae">
+        <button type="submit" class="btn-search">Hae</button>
     </form>
   </div>
 

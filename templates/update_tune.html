@@ -21,13 +21,16 @@
       >
       <label for="{{ category.name }}">{{ category.name }} </label>
     {% endfor %}
-  <p><input type="submit" value="Tallenna muutokset">  
-  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  <p>
+    <button class="btn-modify">Tallenna muutokset</button>  
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
-<form action="/tune/{{ tune.id }}" method="GET">
-  <button>Peruuta</button>
+
+<form action="/tune/{{ tune.id }}" method="GET" style="margin-top: -0.5em;">
+  <button class="btn-cancel">Peruuta</button>
 </form>
-<p><a href="https://abcnotation.com/learn">Miten ABC-notaatiota kirjoitetaan?</a>
+
+<p><strong>Lue lisää: </strong><a href="https://abcnotation.com/learn">Miten ABC-notaatiota kirjoitetaan?</a>
 
 {% else %}
   <p><a href="/login">Kirjaudu sisään, jos haluat muokata kappaleitasi.</a></p>
