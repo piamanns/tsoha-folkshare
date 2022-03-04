@@ -269,6 +269,40 @@ nav li:hover a {
   border-right: none;
 }
 
+.comments {
+  margin-top: 2em;
+}
+
+.comments h3 {
+  border-left: 4px solid #f1bd20;
+  padding-left: 0.4em;
+}
+
+.comments ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.comments li {
+  border-bottom: 1px solid lightgrey;
+  padding-top: 1em;
+}
+
+.comment-poster {
+  display: inline;
+  float: left;
+  line-height: 1em;
+  margin-right: 0.5em;
+}
+
+.comment-poster p {
+  line-height: 1em;
+}
+
+.comment-content {
+  clear: both;
+}
+
 /* || SEARCH FORM */
 
 .search-form {
