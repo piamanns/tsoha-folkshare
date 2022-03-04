@@ -19,8 +19,10 @@
       <label for="{{ category.name }}"> {{ category.name }}</label></li>
     {% endfor %}
     </div>
-  <p>
-    <button type="submit">Lisää kappale</button>  
+  <p>  
+    <button type="submit">Lisää kappale</button><br>  
+  <p> 
+    <button type="reset" class="btn-cancel" style="margin-top: -0.5em">Tyhjennä</button>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 

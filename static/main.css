@@ -106,11 +106,6 @@ button:hover {
   color: #333;
 }
 
-.btn-cancel:hover {
-  background-color: #666;
-  color: white;
-}
-
 .btn-link-purple {
   background-color: #470b3b;
 }
