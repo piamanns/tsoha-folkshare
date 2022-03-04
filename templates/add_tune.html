@@ -12,11 +12,13 @@
     <label for="tuneNotation">Kappale ABC-notaationa:</label><br>
     <textarea id ="tuneNotation" name="notation" rows="10" cols="40" maxlength="10000"></textarea><br>
   <p>
-    <legend>Valitse kategoria:</legend></br>
+    <legend>Valitse kategoria:</legend>
+    <div class="tune-category-list">
     {% for category in categories %}
-      <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"> 
-      <label for="{{ category.name }}"> {{ category.name }}</label>
+      <li><input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"> 
+      <label for="{{ category.name }}"> {{ category.name }}</label></li>
     {% endfor %}
+    </div>
   <p>
     <button type="submit">Lisää kappale</button>  
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

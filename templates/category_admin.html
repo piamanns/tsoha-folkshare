@@ -6,13 +6,17 @@
 
 {% if session.user_role == 2 %}
   <h3>Palvelun nykyiset kategoriat:</h3>
-  {% for category in categories %}
-      {% if category.visible %}
-        <a href="/category/{{ category.id }}">{{ category.name }}</a>
-      {% else %}
-        <a href="/category/{{ category.id }}" class="hidden">{{ category.name }}</a>
-      {% endif %}
-  {% endfor %}
+  <div class="tune-category-list">
+    <ul>
+    {% for category in categories %}
+        {% if category.visible %}
+          <li><a href="/category/{{ category.id }}">{{ category.name }}</a></li>
+        {% else %}
+          <li><a href="/category/{{ category.id }}" class="hidden">{{ category.name }}</a></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+  </div>
   <p>(Huomaathan, että palvelussa ei voi olla useita samannimisiä kategorioita.)</p>
 
   <form action="/add_category" method="POST">
@@ -23,28 +27,35 @@
       <button>Lisää kategoria</button>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
+
   <hr>  
   <h2>Valitse näytettävät kategoriat:</h2>
   <form action="/set_category_visibility" method="POST">
-    {% for category in categories %}
-      <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}" 
-        {% if category.visible %}
-          checked
-          {% else %}
-            style="color:gray;"
-        {% endif %}
-      > 
-      <label for="{{ category.name }}"> {{ category.name }} </label>
-    {% endfor %}
+    <div class="tune-category-list">
+      <ul>
+      {% for category in categories %}
+        <li>
+          <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}" 
+          {% if category.visible %}
+            checked
+            {% else %}
+              style="color:gray;"
+          {% endif %}>
+        <label for="{{ category.name }}"> {{ category.name }} </label>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     <p>
       <button class="btn-modify">Tallenna valinnat</button>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
   </form>
+
   <hr>
   <h2>Poista kategoria</h2>
   <p>Poista kategoria kokonaan palvelusta. Kategoriaan liitetyt kappaleet säilyvät palvelussa.</p>
   <form action="/delete_category" method="POST">
-    <ul style="list-style-type: none; padding-inline-start: 0;">
+    <ul class="no-bullets-list">
     {% for category in categories %}
       <li><input type="radio" name="category_id" value="{{ category.id }}"> {{ category.name }} ({{ category.count }})</li>
     {% endfor %}

@@ -12,15 +12,21 @@
     <label for="notation">Kappale ABC-notaationa:</label><br>
     <textarea id ="notation" name="notation" rows="10" cols="60" maxlength="10000">{{ tune.notation }}</textarea><br>
   <p>
-    <legend><strong>Kappale on liitetty kategorioihin:</strong></legend></br>
-    {% for category in categories %}
-      <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"  
-      {% if category.id in tune_category_ids %}  
-        checked
-      {% endif %}  
-      >
-      <label for="{{ category.name }}">{{ category.name }} </label>
-    {% endfor %}
+    <legend><strong>Kappale on liitetty kategorioihin:</strong></legend><br>
+    <div class="tune-category-list">
+      <ul>
+      {% for category in categories %}
+        <li>
+        <input type="checkbox" id="{{ category.name}}" name="category" value="{{ category.id }}"  
+        {% if category.id in tune_category_ids %}  
+          checked
+        {% endif %}  
+        >
+        <label for="{{ category.name }}">{{ category.name }} </label>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
   <p>
     <button class="btn-modify">Tallenna muutokset</button>  
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

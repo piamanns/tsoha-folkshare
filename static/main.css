@@ -42,6 +42,11 @@ hr {
   padding-left: 1.5em;
 }
 
+.no-bullets-list {
+  list-style: none;
+  padding-left: 0;
+}
+
 /* Link to hidden resources */
 .hidden:link, .hidden:visited {
   color: gray;
@@ -169,7 +174,7 @@ button:hover {
   color: #470b3b;
   font-size: 1.2em;
   font-weight: 600;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
 }
 
 .header p {
@@ -248,7 +253,6 @@ nav li:hover a {
 }
 
 .tune-category-list ul {
-  display: block;
   list-style: none;
   margin-top: 0;
   padding: 0;
@@ -257,14 +261,11 @@ nav li:hover a {
 .tune-category-list li {
   display: inline;
   margin: 0;
-  padding-left: 0.2em; 
-  padding-right: 0.3em;
+  padding-right: 0.4em;
+  margin-right: 0.2em;
   line-height: 1.5em;
   border-right: 1px solid lightgrey;
-}
-
-.tune-category-list li:first-child {
-  padding-left: 0; 
+  white-space: nowrap;
 }
 
 .tune-category-list li:last-child {
