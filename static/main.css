@@ -232,7 +232,8 @@ nav li:hover a {
 
 #notation-container {
   width: 95%;
-  margin: 1em o;
+  margin: 1em 0;
+  text-align: center;
 }
 
 .tune-admin {
