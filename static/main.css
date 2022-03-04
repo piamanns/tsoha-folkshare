@@ -231,14 +231,15 @@ nav li:hover a {
 /* || TUNE PAGE */
 
 #notation-container {
-  width: 90%;
-  margin: 1em 0;
+  width: 95%;
+  margin: 1em o;
 }
 
 .tune-admin {
-  max-width: 90%;
+  max-width: 95%;
   margin: 1em 0 2em 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .align-right{
@@ -258,7 +259,7 @@ nav li:hover a {
   padding-left: 0.2em; 
   padding-right: 0.3em;
   line-height: 1.5em;
-  border-right: 0.1em solid lightgrey;
+  border-right: 1px solid lightgrey;
 }
 
 .tune-category-list li:first-child {
@@ -354,4 +355,12 @@ nav li:hover a {
 
 .footer li a:hover {
   text-decoration: underline;
+}
+
+/* || PRINT */
+
+@media print {
+  .header, nav, .tune-admin, .comments, .footer {
+    display: none;
+  }  
 }

@@ -71,18 +71,18 @@
   {% else %}
     <p>-</p>  
   {% endif %}
-</div>
 
-{% if session.user_id%}
-  <form action="/add_comment" method="POST">  
-    <p>
-      <label for="comment"><strong>Lisää kommentti:</strong></label><br>
-      <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000"></textarea>
-    <p>
-      <input type="hidden" name="tune_id" value="{{ tune.id }}">
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-      <button>Lähetä kommentti</button>
-  </form>
-{% endif %}
+  {% if session.user_id%}
+    <form action="/add_comment" method="POST">  
+      <p>
+        <label for="comment"><strong>Lisää kommentti:</strong></label><br>
+        <textarea id ="comment" name="comment" rows="6" cols="40" maxlength="1000"></textarea>
+      <p>
+        <input type="hidden" name="tune_id" value="{{ tune.id }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <button>Lähetä kommentti</button>
+    </form>
+  {% endif %}
+</div>
 
 {% endblock %}
