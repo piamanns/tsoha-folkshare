@@ -26,8 +26,9 @@ Sovellusta voi testata osoitteessa <a href="https://tsoha-folkshare.herokuapp.co
 - Ylläpitäjä voi poistaa kommentteja.
 - Kirjautumattomat käyttäjät voivat selata palvelusta löytyviä nuotteja. 
 
+### Jatkokehitysideoita:
 
-### Työn alla:
+- Vahvistamisdialogi ennen kappaleen, kategorian tai kommentin lopullista poistoa. 
+- Kappalelistausten sivutus.
 
-- Looginen navigaatio ja palvelun yleinen rakenne 
-- Sovelluksen graafinen ulkoasu
+
