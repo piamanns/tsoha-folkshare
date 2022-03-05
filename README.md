@@ -28,7 +28,9 @@ Sovellusta voi testata osoitteessa <a href="https://tsoha-folkshare.herokuapp.co
 
 ### Jatkokehitysideoita:
 
-- Vahvistamisdialogi ennen kappaleen, kategorian tai kommentin lopullista poistoa. 
-- Kappalelistausten sivutus.
+- Vahvistamistoiminto ennen kappaleen, kategorian tai kommentin lopullista poistoa 
+- Käyttäjälle mahdollisuus koota suosikkinuoteistaan omia nuottialbumeja
+- Kappalelistausten sivutus
+- CSS-latausanimaatio nuotin piirtymistä odotellessa
 
 
