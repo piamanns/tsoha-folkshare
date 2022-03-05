@@ -286,6 +286,10 @@ nav li:hover a {
   padding-top: 1em;
 }
 
+.comments li:last-child {
+  border-bottom: none;
+}
+
 .comment-poster {
   display: inline;
   float: left;
